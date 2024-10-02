@@ -1,4 +1,6 @@
-﻿namespace KursovaApp;
+﻿using KursovaApp.Classes;
+
+namespace KursovaApp;
 
 public partial class MainPage : ContentPage
 {
@@ -9,16 +11,11 @@ public partial class MainPage : ContentPage
 		InitializeComponent();
 	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
+	private void OnButtonClicked(object sender, EventArgs e)
 	{
-		count++;
+		University university = new University();
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
-
-		SemanticScreenReader.Announce(CounterBtn.Text);
+		university.ReadFile();
 	}
 }
 
