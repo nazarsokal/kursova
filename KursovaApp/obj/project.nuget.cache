@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "PO6pjHqT98E=",
+  "dgSpecHash": "xFHPSfIP+ps=",
   "success": true,
   "projectFilePath": "/Users/asokalch/Documents/GitHub/kursova/KursovaApp/KursovaApp.csproj",
   "expectedPackageFiles": [
@@ -108,12 +108,5 @@
     "/Users/asokalch/.nuget/packages/xamarin.kotlinx.coroutines.android/1.7.2.1/xamarin.kotlinx.coroutines.android.1.7.2.1.nupkg.sha512",
     "/Users/asokalch/.nuget/packages/xamarin.kotlinx.coroutines.core.jvm/1.7.2.1/xamarin.kotlinx.coroutines.core.jvm.1.7.2.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    }
-  ]
+  "logs": []
 }

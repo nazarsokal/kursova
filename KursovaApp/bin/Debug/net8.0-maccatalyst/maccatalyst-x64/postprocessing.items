@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <_PostProcessingItem Include="KursovaApp.app/Contents/MacOS/KursovaApp">
+      <IsAppExtension>false</IsAppExtension>
+      <BCSymbolMapName>KursovaApp.bcsymbolmap</BCSymbolMapName>
+      <NoDSymUtil>true</NoDSymUtil>
+      <dSYMSourcePathExists>false</dSYMSourcePathExists>
+      <NoSymbolStrip>true</NoSymbolStrip>
+      <dSYMInfoPlistRelativePath>KursovaApp.app.dSYM\Contents\Info.plist</dSYMInfoPlistRelativePath>
+      <SymbolFile>/Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/mtouch-symbols.list</SymbolFile>
+      <DSymName>KursovaApp.app.dSYM</DSymName>
+      <SourceProjectPath>/Users/asokalch/Documents/GitHub/kursova/KursovaApp</SourceProjectPath>
+      <IsXPCService></IsXPCService>
+    </_PostProcessingItem>
+  </ItemGroup>
+</Project>

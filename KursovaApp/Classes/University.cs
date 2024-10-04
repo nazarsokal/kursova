@@ -1,6 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 
-namespace StudyNET;
+namespace KursovaApp.Classes;
 
 public class University
 {
@@ -12,7 +12,6 @@ public class University
     public double Price { get; }
 
     private readonly string filePath = "/Users/asokalch/Documents/StudyNETproj/StudyProject/UniversityList";
-    private int wordsCount;
 
     public University(string _Name, string _City, string _Country, int _StudentsCount, List<string> _StudyField, double _Price)
     {

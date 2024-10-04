@@ -1,0 +1,1 @@
+-v --force --timestamp=none --sign - --entitlements /Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/Entitlements.xcent /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/KursovaApp.app
