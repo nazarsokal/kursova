@@ -4,14 +4,14 @@ namespace KursovaApp.Classes;
 
 public class University
 {
-    public string Name { get; }
-    public string City { get; }
-    public string Country { get; }
-    public int StudentsCount { get; }
+    public string Name { get; set;}
+    public string City { get; set;}
+    public string Country { get; set;}
+    public int StudentsCount { get; set;}
     public List<string> StudyFields { get; }
-    public double Price { get; }
+    public double Price { get; set;}
 
-    private readonly string filePath = "/Users/asokalch/Documents/StudyNETproj/StudyProject/UniversityList";
+    private readonly string FilePath = "/Users/asokalch/Documents/GitHub/kursova/KursovaApp/Classes/UniversityList";
 
     public University(string _Name, string _City, string _Country, int _StudentsCount, List<string> _StudyField, double _Price)
     {
@@ -22,6 +22,16 @@ public class University
         StudyFields = _StudyField;
         Price = _Price;
     }
+    public University(string _Name, string _City, string _Country, int _StudentsCount, double _Price)
+    {
+        Name = _Name;
+        City = _City;
+        Country = _Country;
+        StudentsCount = _StudentsCount;
+        Price = _Price;
+    }
+
+
 
     public University()
     {
@@ -35,29 +45,31 @@ public class University
 
     public List<University> ReadFile()
     {
-        string line = null;
-        string[] fields = null;
-        var delim = ",";
         var universities = new List<University>();
-        using(var streamReader = new StreamReader(filePath))
+
+        //PermissionStatus statusread = await Permissions.RequestAsync<Permissions.StorageRead>();
+        
+        //var path = FileSystem.AppDataDirectory;
+        // Get the path to the user's Documents folder
+        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+        // Safely construct the full path by combining the directories
+        string kursovaAppPath = Path.Combine(documentsPath, "GitHub", "kursova", "KursovaApp", "UniversityList");
+
+        var lines = File.ReadAllLines(kursovaAppPath);
+        
+        for (int i = 0; i < lines.Count(); i++)
         {
-            var lines = File.ReadLines(filePath);
-            int counter = 0;
-            
-            for (int i = 0; i < lines.Count(); i++)
-            {
-                List<string> lineArray = lines.ToList()[i].Split(',').ToList();
-                List<string> studyFields = lineArray[4]
-                    .Split(':')
-                    .Select(field => field.Replace("{", "").Replace("}", ""))
-                    .ToList();
+            List<string> lineArray = lines.ToList()[i].Split(',').ToList();
+            List<string> studyFields = lineArray[4]
+                .Split(':')
+                .Select(field => field.Replace("{", "").Replace("}", ""))
+                .ToList();
 
-
-                universities.Add(new University(_Name: lineArray[0], _City: lineArray[1], _Country: lineArray[2], _StudentsCount: int.Parse(lineArray[3]), 
-                _StudyField: studyFields, _Price: Price));
-            }
+            universities.Add(new University(_Name: lineArray[0], _City: lineArray[1], _Country: lineArray[2], _StudentsCount: int.Parse(lineArray[3]), 
+            _StudyField: studyFields, _Price: Price));
+        }
 
             return universities;
-        };
     }
 }

@@ -1,21 +1,25 @@
-﻿using KursovaApp.Classes;
+﻿using System.Collections.ObjectModel;
+using KursovaApp.Classes;
 
 namespace KursovaApp;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private readonly University university = new University();
+
+	public ObservableCollection<University> Universities {get; set;}
 
 	public MainPage()
 	{
 		InitializeComponent();
+		
 	}
 
 	private void OnButtonClicked(object sender, EventArgs e)
 	{
-		University university = new University();
+		var list = university.ReadFile();
 
-		university.ReadFile();
+		DisplayAlert("Alert", list.Count().ToString(), "OK");
 	}
 }
 
