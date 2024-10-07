@@ -46,17 +46,19 @@ public class University
     public List<University> ReadFile()
     {
         var universities = new List<University>();
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-        //PermissionStatus statusread = await Permissions.RequestAsync<Permissions.StorageRead>();
-        
-        //var path = FileSystem.AppDataDirectory;
-        // Get the path to the user's Documents folder
-        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
+        string fileName = "UniversityList.txt";
 
-        // Safely construct the full path by combining the directories
-        string kursovaAppPath = Path.Combine(documentsPath, "GitHub", "kursova", "KursovaApp", "UniversityList");
+        string filePath = Path.Combine(subFolderPath, fileName);
 
-        var lines = File.ReadAllLines(kursovaAppPath);
+        if (!Directory.Exists(subFolderPath))
+        {
+            Directory.CreateDirectory(subFolderPath);  // This will create the "kursova/KursovaApp" directory if it doesn't exist
+        }
+
+        var lines = File.ReadAllLines(filePath);
         
         for (int i = 0; i < lines.Count(); i++)
         {
@@ -70,6 +72,6 @@ public class University
             _StudyField: studyFields, _Price: Price));
         }
 
-            return universities;
+        return universities;
     }
 }
