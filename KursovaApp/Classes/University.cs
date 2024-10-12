@@ -11,8 +11,6 @@ public class University
     public List<string> StudyFields { get; }
     public double Price { get; set;}
 
-    private readonly string FilePath = "/Users/asokalch/Documents/GitHub/kursova/KursovaApp/Classes/UniversityList";
-
     public University(string _Name, string _City, string _Country, int _StudentsCount, List<string> _StudyField, double _Price)
     {
         Name = _Name;
@@ -30,8 +28,6 @@ public class University
         StudentsCount = _StudentsCount;
         Price = _Price;
     }
-
-
 
     public University()
     {
@@ -69,7 +65,7 @@ public class University
                 .ToList();
 
             universities.Add(new University(_Name: lineArray[0], _City: lineArray[1], _Country: lineArray[2], _StudentsCount: int.Parse(lineArray[3]), 
-            _StudyField: studyFields, _Price: Price));
+            _StudyField: studyFields, _Price: Convert.ToDouble(lineArray[5])));
         }
 
         return universities;

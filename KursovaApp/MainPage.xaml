@@ -5,7 +5,7 @@
 
     <Grid Padding="20">
         <!-- Додано пошуковий рядок і кнопки -->
-        <Grid RowDefinitions="Auto, *" Margin="0,0,0,20"> <!-- Відступ між пошуковим рядком і рештою -->
+        <Grid RowDefinitions="Auto, Auto" Margin="0,0,0,20"> <!-- Відступ між пошуковим рядком і рештою -->
             <Grid ColumnDefinitions="0.5*,Auto,Auto" Padding="0,0,0,20"> <!-- Відступ між елементами в рядку пошуку -->
                 <!-- <Frame Padding="1" BorderColor="White">
                     <SearchBar Placeholder="Пошук..." HeightRequest="40" BackgroundColor="White" />
@@ -21,7 +21,7 @@
                 <Grid Grid.Column="0" Margin="0,0,20,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <!-- CollectionView для відображення університетів як таблиці -->
