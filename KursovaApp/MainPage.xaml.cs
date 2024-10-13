@@ -25,7 +25,9 @@ public partial class MainPage : ContentPage
 		base.OnAppearing();
 
 		UniversitiesList = university.ReadFile();
-		
+
+		UniversityRepository universityRepository = new UniversityRepository(UniversitiesList);
+
 		foreach (var item in UniversitiesList)
 		{
 			Universities.Add(new University
@@ -41,15 +43,15 @@ public partial class MainPage : ContentPage
 
 	private void OnSearchButtonClicked(object sender, EventArgs e)
 	{
-		if(SearchEntry.Text != null)
-		{
-			Universities.Clear();
-			List<University> searchedList = UniversitiesList.Where(n => n.Name.ToLower() == SearchEntry.Text.ToLower()).ToList();
-			if(searchedList.Count() == 0)
-				DisplayAlert("Помилка", "Університету з такою назвою не знайдено", "ОК");
-			else
-				TableInput(searchedList);
-		}
+		// if(SearchEntry.Text != null)
+		// {
+		// 	Universities.Clear();
+		// 	List<University> searchedList = UniversitiesList.Where(n => n.Name.ToLower() == SearchEntry.Text.ToLower()).ToList();
+		// 	if(searchedList.Count() == 0)
+		// 		DisplayAlert("Помилка", "Університету з такою назвою не знайдено", "ОК");
+		// 	else
+		// 		TableInput(searchedList);
+		// }
 	}
 
 	private void TableInput(List<University> universities)
@@ -83,6 +85,14 @@ public partial class MainPage : ContentPage
 			else
 				TableInput(specialCountUniversities);
 		}
+    }
+
+    private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    {
+		var filterText = ((SearchBar)sender).Text;
+		var universities = new ObservableCollection<University>(UniversityRepository.SearchUnivesities(filterText));
+
+		UniversitiesTable.ItemsSource = universities;
     }
 }
 
