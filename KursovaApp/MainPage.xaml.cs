@@ -40,20 +40,6 @@ public partial class MainPage : ContentPage
 			});
 		}
 	}
-
-	private void OnSearchButtonClicked(object sender, EventArgs e)
-	{
-		// if(SearchEntry.Text != null)
-		// {
-		// 	Universities.Clear();
-		// 	List<University> searchedList = UniversitiesList.Where(n => n.Name.ToLower() == SearchEntry.Text.ToLower()).ToList();
-		// 	if(searchedList.Count() == 0)
-		// 		DisplayAlert("Помилка", "Університету з такою назвою не знайдено", "ОК");
-		// 	else
-		// 		TableInput(searchedList);
-		// }
-	}
-
 	private void TableInput(List<University> universities)
 	{
 		foreach (var item in universities)
@@ -71,20 +57,19 @@ public partial class MainPage : ContentPage
 
     private void StudentsCountButtonClicked(object sender, EventArgs e)
     {
-		var minStudentCount = int.Parse(StartEntry.Text);
-		var maxStudentCount = int.Parse(MaxEntry.Text);
+		int minStudentCount = int.Parse(StartEntry.Text);
+		int maxStudentCount = int.Parse(MaxEntry.Text);
 
-		if (minStudentCount != null || maxStudentCount != null)
-		{
-			List<University> specialCountUniversities = UniversitiesList.
-				Where(sc => sc.StudentsCount > minStudentCount && sc.StudentsCount < maxStudentCount)
-				.ToList();
-	
-			if(specialCountUniversities.Count() == 0)
-				DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
-			else
-				TableInput(specialCountUniversities);
-		}
+        if (minStudentCount != 0 && maxStudentCount != 0)
+        {
+            var specialSCUniversities = new ObservableCollection<University>(UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount));
+            if (specialSCUniversities.Count == 0)
+                DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
+
+            UniversitiesTable.ItemsSource = specialSCUniversities;
+        }
+        else
+            DisplayAlert("Помилка", "Ви не ввели усіх необхідних даних", "ОК");
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)

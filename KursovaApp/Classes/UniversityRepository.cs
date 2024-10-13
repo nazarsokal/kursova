@@ -20,8 +20,20 @@ public class UniversityRepository
             .ToList();
 
         if(universities == null || universities.Count < 1)
-            return _universities;
+            return new List<University>();
 
         return universities;
+    }
+
+    public static List<University> StudentsCountUniversities(int minCount, int maxCount)
+    {
+        List<University> specialCountUniversities = _universities.
+				Where(sc => sc.StudentsCount > minCount && sc.StudentsCount < maxCount)
+				.ToList();
+	
+        if(specialCountUniversities.Count() == 0)
+            return new List<University>();
+        else
+            return specialCountUniversities;
     }
 }

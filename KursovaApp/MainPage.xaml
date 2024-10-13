@@ -10,10 +10,10 @@
                 <!-- <Frame Padding="1" BorderColor="White">
                     <SearchBar Placeholder="Пошук..." HeightRequest="40" BackgroundColor="White" />
                 </Frame> -->
-                <SearchBar TextChanged="SearchBar_TextChanged" Grid.Column="0" Placeholder="Пошук..." HeightRequest="40" BackgroundColor="White" />
+                <SearchBar TextChanged="SearchBar_TextChanged" FontSize="20" Grid.Column="0" Placeholder="Пошук..." HeightRequest="40" BackgroundColor="#94FFFFFF" />
                 <!-- <Entry x:Name="SearchEntry" Placeholder="Пошук..." Grid.Column="0" HeightRequest="40" FontSize="18"/> -->
-                <Button Text="Знайти" Clicked="OnSearchButtonClicked" Grid.Column="1" WidthRequest="100" HeightRequest="40" Margin="10,0,0,0" />
-                <Button Text="Спец. Пошук" Grid.Column="2" WidthRequest="150" HeightRequest="40" Margin="10,0,0,0" />
+                <!-- <Button Text="Знайти" Clicked="OnSearchButtonClicked" Grid.Column="1" WidthRequest="100" HeightRequest="40" Margin="10,0,0,0" /> -->
+                <Button Text="Спец. Пошук" Grid.Column="1" WidthRequest="150" HeightRequest="40" Margin="10,0,0,0" />
             </Grid>
 
             <!-- Основна область вмісту -->
