@@ -9,7 +9,7 @@ public partial class MainPage : ContentPage
 
 	public ObservableCollection<University> Universities {get; set;}
 
-	public List<University> UniversitiesFromFile {get; private set;} 
+	public List<University> UniversitiesList {get; private set;} 
 
 	public MainPage()
 	{
@@ -24,9 +24,9 @@ public partial class MainPage : ContentPage
 	{
 		base.OnAppearing();
 
-		UniversitiesFromFile = university.ReadFile();
+		UniversitiesList = university.ReadFile();
 		
-		foreach (var item in UniversitiesFromFile)
+		foreach (var item in UniversitiesList)
 		{
 			Universities.Add(new University
 			{
@@ -39,15 +39,22 @@ public partial class MainPage : ContentPage
 		}
 	}
 
-	private void OnButtonClicked(object sender, EventArgs e)
+	private void OnSearchButtonClicked(object sender, EventArgs e)
 	{
-		//DisplayAlert("Alert", list.Count().ToString(), "OK");
+		if(SearchEntry.Text != null)
+		{
+			Universities.Clear();
+			List<University> searchedList = UniversitiesList.Where(n => n.Name.ToLower() == SearchEntry.Text.ToLower()).ToList();
+			if(searchedList.Count() == 0)
+				DisplayAlert("Помилка", "Університету з такою назвою не знайдено", "ОК");
+			else
+				TableInput(searchedList);
+		}
 	}
 
-	private void TableInput()
+	private void TableInput(List<University> universities)
 	{
-		UniversitiesFromFile = university.ReadFile();
-		foreach (var item in UniversitiesFromFile)
+		foreach (var item in universities)
 		{
 			Universities.Add(new University
 			{
@@ -59,5 +66,23 @@ public partial class MainPage : ContentPage
 			});
 		}
 	}
+
+    private void StudentsCountButtonClicked(object sender, EventArgs e)
+    {
+		var minStudentCount = int.Parse(StartEntry.Text);
+		var maxStudentCount = int.Parse(MaxEntry.Text);
+
+		if (minStudentCount != null || maxStudentCount != null)
+		{
+			List<University> specialCountUniversities = UniversitiesList.
+				Where(sc => sc.StudentsCount > minStudentCount && sc.StudentsCount < maxStudentCount)
+				.ToList();
+	
+			if(specialCountUniversities.Count() == 0)
+				DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
+			else
+				TableInput(specialCountUniversities);
+		}
+    }
 }
 

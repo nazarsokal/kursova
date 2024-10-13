@@ -34,11 +34,6 @@ public class University
 
     }
 
-    public void FindUniversityByCountryCity(string countryFromUser, string cityFromUser)
-    {
-        
-    }
-
     public List<University> ReadFile()
     {
         var universities = new List<University>();

@@ -10,8 +10,8 @@
                 <!-- <Frame Padding="1" BorderColor="White">
                     <SearchBar Placeholder="Пошук..." HeightRequest="40" BackgroundColor="White" />
                 </Frame> -->
-                <Entry Placeholder="Пошук..." Grid.Column="0" HeightRequest="40" FontSize="18"/>
-                <Button Text="Знайти" Clicked="OnButtonClicked" Grid.Column="1" WidthRequest="100" HeightRequest="40" Margin="10,0,0,0" />
+                <Entry x:Name="SearchEntry" Placeholder="Пошук..." Grid.Column="0" HeightRequest="40" FontSize="18"/>
+                <Button Text="Знайти" Clicked="OnSearchButtonClicked" Grid.Column="1" WidthRequest="100" HeightRequest="40" Margin="10,0,0,0" />
                 <Button Text="Спец. Пошук" Grid.Column="2" WidthRequest="150" HeightRequest="40" Margin="10,0,0,0" />
             </Grid>
 
@@ -28,11 +28,11 @@
                     <CollectionView Grid.Row="1" Margin="0,20,0,20" ItemsSource="{Binding Universities}">
                         <CollectionView.Header>
                             <Grid ColumnDefinitions="2*,0.8*,0.7*,*,*" Padding="10,0" BackgroundColor="#cccccc">
-                                <Label Text="Name" FontAttributes="Bold" FontSize="18" Grid.Column="0" />
-                                <Label Text="City" FontAttributes="Bold" FontSize="18" Grid.Column="1" />
-                                <Label Text="Country" FontAttributes="Bold" FontSize="18" Grid.Column="2" />
-                                <Label Text="Number of Students" FontAttributes="Bold" FontSize="18" Grid.Column="3" />
-                                <Label Text="Price" FontAttributes="Bold" FontSize="18" Grid.Column="4" />
+                                <Label Text="Назва" FontAttributes="Bold" FontSize="22" Grid.Column="0" />
+                                <Label Text="Місто" FontAttributes="Bold" FontSize="22" Grid.Column="1" />
+                                <Label Text="Країна" FontAttributes="Bold" FontSize="22" Grid.Column="2" />
+                                <Label Text="Кількість студетів" FontAttributes="Bold" FontSize="22" Grid.Column="3" />
+                                <Label Text="Ціна" FontAttributes="Bold" FontSize="22" Grid.Column="4" />
                             </Grid>
                         </CollectionView.Header>
                         <CollectionView.ItemTemplate>
@@ -102,12 +102,12 @@
                                         <Button Text="За спаданням" WidthRequest="180" FontSize="16" />
                                 </StackLayout>
                                 
-                                <Label Text="Вивести університети із такою к-стю студентів" Margin="0,20,0,20" FontSize="18" />
+                                <Label Text="Вивести університети із заданою к-стю студентів" Margin="0,20,0,0" FontSize="16" />
                                 <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
-                                        <Entry Placeholder="Від..." WidthRequest="150" Margin="0,0,20,0" FontSize="16" />
-                                        <Entry Placeholder="До..." WidthRequest="150" FontSize="16" />
+                                        <Entry x:Name="StartEntry" Placeholder="Від..." WidthRequest="150" Margin="0,0,20,0" FontSize="16" />
+                                        <Entry x:Name="MaxEntry" Placeholder="До..." WidthRequest="150" FontSize="16" />
                                 </StackLayout>
-                                <Button Text="Вивести" Margin="0,20,0,20" FontSize="16" />
+                                <Button Text="Вивести" Clicked="StudentsCountButtonClicked" Margin="0,20,0,20" FontSize="16" />
 
                                 <Grid Margin="0,0,20,0">
                                         <Grid.RowDefinitions>
