@@ -17,9 +17,9 @@
             </Grid>
 
             <!-- Основна область вмісту -->
-            <Grid Grid.Row="1" ColumnDefinitions="3*, 1*" RowDefinitions="Auto, Auto" Margin="0,0,0,20">
+            <Grid Grid.Row="1" ColumnDefinitions="2*, 0.5*" RowDefinitions="Auto, Auto" Margin="0,0,0,20">
                 <!-- Основна таблиця -->
-                <Grid Grid.Column="0" Margin="0,0,20,50">
+                <Grid Grid.Column="0" Margin="0,0,10,50">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="920" />
@@ -27,24 +27,35 @@
 
                     <!-- CollectionView для відображення університетів як таблиці -->
                     <CollectionView x:Name="UniversitiesTable" Grid.Row="1" Margin="0,20,0,20" ItemsSource="{Binding Universities}">
-                        <CollectionView.Header>
-                            <Grid ColumnDefinitions="2*,0.8*,0.7*,*,*" Padding="10,0" BackgroundColor="#cccccc">
-                                <Label Text="Назва" FontAttributes="Bold" FontSize="22" Grid.Column="0" />
-                                <Label Text="Місто" FontAttributes="Bold" FontSize="22" Grid.Column="1" />
-                                <Label Text="Країна" FontAttributes="Bold" FontSize="22" Grid.Column="2" />
-                                <Label Text="Кількість студетів" FontAttributes="Bold" FontSize="22" Grid.Column="3" />
-                                <Label Text="Ціна" FontAttributes="Bold" FontSize="22" Grid.Column="4" />
+                         <CollectionView.Header>
+                            <Grid ColumnDefinitions="2.6*,0.5*,1.5*,0.5*,1.3*,0.5*,2*,0.5*,1.5*,0.5*" Padding="10,0" BackgroundColor="#cccccc">
+                                <Label Text="Назва" FontAttributes="Bold" FontSize="22" Grid.Column="0" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
+                                <Button x:Name="NameSortButton" FontSize="18" Text="▲" Grid.Column="1" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                                <Label Text="Місто" FontAttributes="Bold" FontSize="22" Grid.Column="2" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
+                                <Button x:Name="CitySortButton" FontSize="18" Text="▲" Grid.Column="3" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                                <Label Text="Країна" FontAttributes="Bold" FontSize="22" Grid.Column="4" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
+                                <Button x:Name="CountrySortButton" FontSize="18" Text="▲" Grid.Column="5" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                                <Label Text="Кількість студетів" FontAttributes="Bold" FontSize="22" Grid.Column="6" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
+                                <Button x:Name="StudentsCountSortButton" FontSize="18" Text="▲" Grid.Column="7" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
+
+                                <Label Text="Ціна" FontAttributes="Bold" FontSize="22" Grid.Column="8" VerticalTextAlignment="Center" HorizontalOptions="Start" />
+                                <Button x:Name="PriceSortButton" FontSize="18" Text="▲" Grid.Column="9" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
                             </Grid>
                         </CollectionView.Header>
+
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="2*,0.3*,*,*,*,0.7*" Padding="10,5">
+                                <Grid ColumnDefinitions="2*,0.5*,1.5*,1.5*,2*,1.5*" Padding="10,5">
                                     <Label Text="{Binding Name}" 
                                         Grid.Column="0" 
                                         FontSize="20" 
                                         FontAttributes="Bold" 
                                         VerticalTextAlignment="Center" 
-                                        Margin="5,0" />
+                                        Margin="5,0" 
+                                        HorizontalOptions="Start" />
 
                                     <Button Text="..." 
                                             Grid.Column="1" 
@@ -55,38 +66,39 @@
                                             HeightRequest="40" 
                                             WidthRequest="40"
                                             VerticalOptions="Center"
-                                            HorizontalOptions="Center"/>
+                                            HorizontalOptions="Center" />
 
                                     <Label Text="{Binding City}" 
                                         Grid.Column="2" 
                                         FontSize="18" 
                                         VerticalTextAlignment="Center" 
-                                        Margin="5,0" />
+                                        Margin="5,0" 
+                                        HorizontalOptions="Start" />
 
                                     <Label Text="{Binding Country}" 
                                         Grid.Column="3" 
                                         FontSize="18" 
                                         VerticalTextAlignment="Center" 
-                                        Margin="5,0" />
+                                        Margin="5,0" 
+                                        HorizontalOptions="Start" />
 
                                     <Label Text="{Binding StudentsCount}" 
                                         Grid.Column="4" 
                                         FontSize="18" 
                                         VerticalTextAlignment="Center" 
-                                        Margin="5,0" />
+                                        Margin="5,0" 
+                                        HorizontalOptions="Start" />
 
                                     <Label Text="{Binding Price}"
                                         Grid.Column="5" 
                                         FontSize="18" 
                                         VerticalTextAlignment="Center" 
-                                        Margin="5,0" />
+                                        Margin="5,0" 
+                                        HorizontalOptions="Start" />
                                 </Grid>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
-
-
                     </CollectionView>
-
                 </Grid>
 
                 <Grid Grid.Column="1" Margin="0,0,20,0"> <!-- Збільшено ширину другої таблиці -->
