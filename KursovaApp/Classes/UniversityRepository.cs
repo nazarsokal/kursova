@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace KursovaApp.Classes;
 
 public class UniversityRepository
@@ -36,4 +38,49 @@ public class UniversityRepository
         else
             return specialCountUniversities;
     }
+
+    public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName)
+    { 
+        var newArray = _universities;
+
+        PropertyInfo propertyInfo = typeof(University).GetProperty(propertyName);
+        if(propertyInfo == null)
+            throw new NullReferenceException("No such Property");
+
+        // Shell sort with decreasing interval
+        for (int interval = newArray.Count / 2; interval > 0; interval /= 2) 
+        { 
+            for (int i = interval; i < _universities.Count; i++) 
+            { 
+                University temp = newArray[i]; 
+                var j = i; 
+                
+                // Sort in ascending order, so check for greater values to move
+                while (j >= interval && checkSortOrder(newArray[j - interval], temp, propertyInfo)) 
+                { 
+                    newArray[j] = newArray[j - interval]; 
+                    j -= interval; 
+                } 
+                newArray[j] = temp; 
+            } 
+        } 
+
+        return newArray;
+    }
+
+    private static int PropertyCompare(University un1, University un2, PropertyInfo propertyInfo)
+    {
+        var un1Value = propertyInfo.GetValue(un1);
+        var un2Value = propertyInfo.GetValue(un2);
+
+        if (un1Value is IComparable comparableA && un2Value is IComparable comparableB)
+        {
+            return comparableA.CompareTo(comparableB);
+        }
+
+        return 0;
+    }
+
+    public static bool predASC(University un1, University un2, PropertyInfo propertyInfo) => PropertyCompare(un1, un2, propertyInfo) > 0;
+    public static bool predDESC(University un1, University un2, PropertyInfo propertyInfo) => PropertyCompare(un1, un2, propertyInfo) < 0;
 }

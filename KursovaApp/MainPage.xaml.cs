@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Reflection;
 using KursovaApp.Classes;
 
 namespace KursovaApp;
@@ -78,6 +79,40 @@ public partial class MainPage : ContentPage
 		var universities = new ObservableCollection<University>(UniversityRepository.SearchUnivesities(filterText));
 
 		UniversitiesTable.ItemsSource = universities;
+    }
+
+    private void SortButton_Clicked(object sender, EventArgs e)
+    {
+		string propName = "";
+		var buttonPressed = sender as Button;
+
+		if(buttonPressed == NameSortButton)
+			propName = "Name";
+		else if(buttonPressed == CitySortButton)
+			propName = "City";
+		else if(buttonPressed == CountrySortButton)
+			propName = "Country";
+		else if(buttonPressed == StudentsCountSortButton)
+			propName = "StudentsCount";
+		else if(buttonPressed == PriceSortButton)
+			propName = "Price";
+
+		if(buttonPressed.Text == "▲")
+		{
+			var predDESCsort = UniversityRepository.predDESC;
+			var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predDESCsort, propName));
+
+			buttonPressed.Text = "▼";
+			UniversitiesTable.ItemsSource = sortedUniversities;
+		}
+		else if(buttonPressed.Text == "▼")
+		{
+			var predASCsort = UniversityRepository.predASC;
+			var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predASCsort, propName));
+
+			buttonPressed.Text = "▲";
+			UniversitiesTable.ItemsSource = sortedUniversities;
+		}
     }
 }
 
