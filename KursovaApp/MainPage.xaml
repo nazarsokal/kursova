@@ -1,34 +1,29 @@
 ﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KursovaApp.MainPage"
-             WidthRequest="4000" HeightRequest="900"> <!-- Розмір вікна збільшено -->
+             Title="Kurso">
 
     <Grid Padding="20">
-        <!-- Додано пошуковий рядок і кнопки -->
-        <Grid RowDefinitions="Auto, Auto" Margin="0,0,0,20"> <!-- Відступ між пошуковим рядком і рештою -->
-            <Grid ColumnDefinitions="0.5*,Auto,Auto" Padding="0,0,0,20"> <!-- Відступ між елементами в рядку пошуку -->
-                <!-- <Frame Padding="1" BorderColor="White">
-                    <SearchBar Placeholder="Пошук..." HeightRequest="40" BackgroundColor="White" />
-                </Frame> -->
+        <!-- Search bar and buttons at the top -->
+        <Grid RowDefinitions="Auto, Auto" Margin="0,0,0,20">
+            <Grid ColumnDefinitions="0.5*,Auto,Auto" Padding="0,0,0,20">
                 <SearchBar TextChanged="SearchBar_TextChanged" FontSize="20" Grid.Column="0" Placeholder="Пошук..." HeightRequest="40" BackgroundColor="#94FFFFFF" />
-                <!-- <Entry x:Name="SearchEntry" Placeholder="Пошук..." Grid.Column="0" HeightRequest="40" FontSize="18"/> -->
-                <!-- <Button Text="Знайти" Clicked="OnSearchButtonClicked" Grid.Column="1" WidthRequest="100" HeightRequest="40" Margin="10,0,0,0" /> -->
-                <Button Text="Спец. Пошук" Grid.Column="1" WidthRequest="150" HeightRequest="40" Margin="10,0,0,0" />
+                <Button Text="Спец. Пошук" Clicked="SpecialSearchButton_Clicked" Grid.Column="1" WidthRequest="150" HeightRequest="40" Margin="10,0,0,0" />
             </Grid>
 
-            <!-- Основна область вмісту -->
+            <!-- Main content area -->
             <Grid Grid.Row="1" ColumnDefinitions="2*, 0.5*" RowDefinitions="Auto, Auto" Margin="0,0,0,20">
-                <!-- Основна таблиця -->
+                <!-- Left table with universities -->
                 <Grid Grid.Column="0" Margin="0,0,10,50">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="920" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- CollectionView для відображення університетів як таблиці -->
-                    <CollectionView x:Name="UniversitiesTable" Grid.Row="1" Margin="0,20,0,20" ItemsSource="{Binding Universities}">
-                         <CollectionView.Header>
-                            <Grid ColumnDefinitions="2.6*,0.5*,1.5*,0.5*,1.3*,0.5*,2*,0.5*,1.5*,0.5*" Padding="10,0" BackgroundColor="#cccccc">
+                    <!-- ListView displaying universities -->
+                    <ListView x:Name="UniversitiesTable" Grid.Row="1" Margin="0,20,0,20" ItemsSource="{Binding Universities}">
+                        <ListView.Header>
+                            <Grid ColumnDefinitions="2.6*,0.5*,1.5*,0.5*,1.3*,0.5*,2*,0.5*,1.5*,0.5*" Padding="10,0" BackgroundColor="#cccccc" HeightRequest="60">
                                 <Label Text="Назва" FontAttributes="Bold" FontSize="22" Grid.Column="0" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
                                 <Button x:Name="NameSortButton" Clicked="SortButton_Clicked" FontSize="18" Text="▲" Grid.Column="1" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
 
@@ -38,116 +33,74 @@
                                 <Label Text="Країна" FontAttributes="Bold" FontSize="22" Grid.Column="4" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
                                 <Button x:Name="CountrySortButton" Clicked="SortButton_Clicked" FontSize="18" Text="▲" Grid.Column="5" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
 
-                                <Label Text="Кількість студетів" FontAttributes="Bold" FontSize="22" Grid.Column="6" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
+                                <Label Text="Кількість студентів" FontAttributes="Bold" FontSize="22" Grid.Column="6" VerticalTextAlignment="Center" HorizontalOptions="Start" Margin="5,0" />
                                 <Button x:Name="StudentsCountSortButton" Clicked="SortButton_Clicked" FontSize="18" Text="▲" Grid.Column="7" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
 
                                 <Label Text="Ціна" FontAttributes="Bold" FontSize="22" Grid.Column="8" VerticalTextAlignment="Center" HorizontalOptions="Start" />
                                 <Button x:Name="PriceSortButton" Clicked="SortButton_Clicked" FontSize="18" Text="▲" Grid.Column="9" BackgroundColor="#cccccc" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" />
                             </Grid>
-                        </CollectionView.Header>
+                        </ListView.Header>
 
-                        <CollectionView.ItemTemplate>
+                        <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="2*,0.5*,1.5*,1.5*,2*,1.5*" Padding="10,5">
-                                    <Label Text="{Binding Name}" 
-                                        Grid.Column="0" 
-                                        FontSize="20" 
-                                        FontAttributes="Bold" 
-                                        VerticalTextAlignment="Center" 
-                                        Margin="5,0" 
-                                        HorizontalOptions="Start" />
-
-                                    <Button Text="..." 
-                                            Grid.Column="1" 
-                                            BackgroundColor="#86FFFFFF" 
-                                            TextColor="Black" 
-                                            FontSize="18"
-                                            CornerRadius="5"
-                                            HeightRequest="40" 
-                                            WidthRequest="40"
-                                            VerticalOptions="Center"
-                                            HorizontalOptions="Center" />
-
-                                    <Label Text="{Binding City}" 
-                                        Grid.Column="2" 
-                                        FontSize="18" 
-                                        VerticalTextAlignment="Center" 
-                                        Margin="5,0" 
-                                        HorizontalOptions="Start" />
-
-                                    <Label Text="{Binding Country}" 
-                                        Grid.Column="3" 
-                                        FontSize="18" 
-                                        VerticalTextAlignment="Center" 
-                                        Margin="5,0" 
-                                        HorizontalOptions="Start" />
-
-                                    <Label Text="{Binding StudentsCount}" 
-                                        Grid.Column="4" 
-                                        FontSize="18" 
-                                        VerticalTextAlignment="Center" 
-                                        Margin="5,0" 
-                                        HorizontalOptions="Start" />
-
-                                    <Label Text="{Binding Price}"
-                                        Grid.Column="5" 
-                                        FontSize="18" 
-                                        VerticalTextAlignment="Center" 
-                                        Margin="5,0" 
-                                        HorizontalOptions="Start" />
-                                </Grid>
+                                <ViewCell>
+                                    <Grid ColumnDefinitions="2*,0.5*,1.5*,1.5*,2*,1.5*" Padding="10,5">
+                                        <Label Text="{Binding Name}" Grid.Column="0" FontSize="20" FontAttributes="Bold" VerticalTextAlignment="Center" Margin="5,0" HorizontalOptions="Start" />
+                                        <Button Text="..." Grid.Column="1" BackgroundColor="#86FFFFFF" TextColor="Black" FontSize="18" CornerRadius="5" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="Center" />
+                                        <Label Text="{Binding City}" Grid.Column="2" FontSize="18" VerticalTextAlignment="Center" Margin="5,0" HorizontalOptions="Start" />
+                                        <Label Text="{Binding Country}" Grid.Column="3" FontSize="18" VerticalTextAlignment="Center" Margin="5,0" HorizontalOptions="Start" />
+                                        <Label Text="{Binding StudentsCount}" Grid.Column="4" FontSize="18" VerticalTextAlignment="Center" Margin="5,0" HorizontalOptions="Start" />
+                                        <Label Text="{Binding Price}" Grid.Column="5" FontSize="18" VerticalTextAlignment="Center" Margin="5,0" HorizontalOptions="Start" />
+                                    </Grid>
+                                </ViewCell>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
 
-                <Grid Grid.Column="1" Margin="0,0,20,0"> <!-- Збільшено ширину другої таблиці -->
-                        <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                        </Grid.RowDefinitions>
-                        
-                        <!-- Правий блок фільтрів -->
-                        <StackLayout Grid.Row="0" Margin="0,0,0,0" WidthRequest="400"> <!-- Додано ширину для фільтрів -->
-                                <Label Text="Відсортувати університети за кількістю учнів" Margin="0,20,0,20" FontSize="18" />
-                                <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
-                                        <Button Text="За зростанням" WidthRequest="180" Margin="0,0,20,0" FontSize="16" />
-                                        <Button Text="За спаданням" WidthRequest="180" FontSize="16" />
-                                </StackLayout>
-                                
-                                <Label Text="Вивести університети із заданою к-стю студентів" Margin="0,20,0,0" FontSize="16" />
-                                <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
-                                        <Entry x:Name="StartEntry" Placeholder="Від..." WidthRequest="150" Margin="0,0,20,0" FontSize="16" />
-                                        <Entry x:Name="MaxEntry" Placeholder="До..." WidthRequest="150" FontSize="16" />
-                                </StackLayout>
-                                <Button Text="Вивести" Clicked="StudentsCountButtonClicked" Margin="0,20,0,20" FontSize="16" />
+                <!-- Right-side filters -->
+                <Grid Grid.Column="1" Margin="0,0,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                                <Grid Margin="0,0,20,0">
-                                        <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-
-                                        <!-- CollectionView для відображення університетів як таблиці -->
-                                        <CollectionView Grid.Row="1" Margin="0,20,0,0">
-                                                <CollectionView.Header>
-                                                <Grid ColumnDefinitions="2*,*" Padding="10,0" BackgroundColor="#cccccc">
-                                                        <Label Text="Назва" FontAttributes="Bold" FontSize="18" Grid.Column="0" />
-                                                        <Label Text="Ціна" FontAttributes="Bold" FontSize="18" Grid.Column="4" />
-                                                </Grid>
-                                                </CollectionView.Header>
-                                                <CollectionView.ItemTemplate>
-                                                <DataTemplate>
-                                                        <Grid ColumnDefinitions="2*,*" Padding="10,0">
-                                                        <Label Text="{Binding Назва}" Grid.Column="0" FontSize="16" />
-                                                        <Label Text="{Binding Ціна}" Grid.Column="4" FontSize="16" />
-                                                        </Grid>
-                                                </DataTemplate>
-                                                </CollectionView.ItemTemplate>
-                                        </CollectionView>
-                                </Grid>
+                    <!-- Filters section -->
+                    <StackLayout Grid.Row="0" Margin="0,0,0,0" WidthRequest="400">
+                        <Label Text="Відсортувати університети за кількістю учнів" Margin="0,20,0,20" FontSize="18" />
+                        <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
+                            <Button Text="За зростанням" WidthRequest="180" Margin="0,0,20,0" FontSize="16" />
+                            <Button Text="За спаданням" WidthRequest="180" FontSize="16" />
                         </StackLayout>
-                        <!-- Таблиця результатів -->
+
+                        <Label Text="Вивести університети із заданою к-стю студентів" Margin="0,20,0,0" FontSize="16" />
+                        <StackLayout Orientation="Horizontal" Margin="0,0,0,20">
+                            <Entry x:Name="StartEntry" Placeholder="Від..." WidthRequest="150" Margin="0,0,20,0" FontSize="16" />
+                            <Entry x:Name="MaxEntry" Placeholder="До..." WidthRequest="150" FontSize="16" />
+                        </StackLayout>
+                        <Button Text="Вивести" Clicked="StudentsCountButtonClicked" Margin="0,20,0,20" FontSize="16" />
+
+                        <!-- Right-side ListView for filtered results -->
+                        <ListView Grid.Row="1" Margin="0,20,0,0">
+                            <ListView.Header>
+                                <Grid ColumnDefinitions="2*,*" Padding="10,0" BackgroundColor="#cccccc">
+                                    <Label Text="Назва" FontAttributes="Bold" FontSize="18" Grid.Column="0" />
+                                    <Label Text="Ціна" FontAttributes="Bold" FontSize="18" Grid.Column="1" />
+                                </Grid>
+                            </ListView.Header>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid ColumnDefinitions="2*,*" Padding="10,0">
+                                            <Label Text="{Binding Назва}" Grid.Column="0" FontSize="16" />
+                                            <Label Text="{Binding Ціна}" Grid.Column="1" FontSize="16" />
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
                 </Grid>
             </Grid>
         </Grid>

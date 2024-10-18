@@ -1,0 +1,6 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KursovaApp.SpecialSearchPage"
+             WidthRequest="4000" HeightRequest="900" Title="Special Search"> <!-- Розмір вікна збільшено -->
+        <Button Text="xxxx"></Button>
+</ContentPage>

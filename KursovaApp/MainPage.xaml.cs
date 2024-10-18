@@ -114,5 +114,13 @@ public partial class MainPage : ContentPage
 			UniversitiesTable.ItemsSource = sortedUniversities;
 		}
     }
+
+	private void SpecialSearchButton_Clicked(object sender, EventArgs e)
+	{
+		var secondWindow = new SpecialSearchPage();
+		var spWindow = new Window(secondWindow);
+
+		Application.Current?.OpenWindow(spWindow);
+	}
 }
 

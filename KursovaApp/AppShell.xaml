@@ -5,11 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:KursovaApp"
     Shell.FlyoutBehavior="Disabled"
-    Title="KursovaApp">
+    Title="Kursova">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        Title="SpecialSearch"
+        ContentTemplate="{DataTemplate local:SpecialSearchPage}"
+        Route="SpecialSearchPage" />
 
 </Shell>

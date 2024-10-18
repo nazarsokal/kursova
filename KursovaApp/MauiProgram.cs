@@ -7,23 +7,10 @@ public static class MauiProgram
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
-            .ConfigureLifecycleEvents(events =>
+            .ConfigureFonts(fonts => 
             {
-#if MACCATALYST
-                events.AddiOS(iOS =>
-                    iOS.SceneWillConnect((scene, session, options) =>
-                    {
-                        if (scene is UIKit.UIWindowScene windowScene)
-                        {
-                            var window = windowScene.KeyWindow;
-                            if (window != null)
-                            {
-                                windowScene.SizeRestrictions.MinimumSize = new CoreGraphics.CGSize(4000, 900); // Set minimum window size
-                                windowScene.SizeRestrictions.MaximumSize = new CoreGraphics.CGSize(4000, 900); // Set maximum window size (optional)
-                            }
-                        }
-                    }));
-#endif
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
         return builder.Build();

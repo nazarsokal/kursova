@@ -34,11 +34,22 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
-
-	<key>com.apple.security.files.user-selected.read-write</key>
-	<true/>
-
-	<key>NSDocumentsFolderUsageDescription</key>
-	<string>Access to user documents folder</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<true/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneDelegateClassName</key>
+					<string>SceneDelegate</string>
+					<key>UISceneConfigurationName</key>
+					<string>__MAUI_DEFAULT_SCENE_CONFIGURATION__</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 </dict>
 </plist>
