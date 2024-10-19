@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Windows.Input;
 using KursovaApp.Classes;
 
 namespace KursovaApp;
@@ -12,6 +13,8 @@ public partial class MainPage : ContentPage
 
 	public List<University> UniversitiesList {get; private set;} 
 
+	public ICommand ButtonCommand { get; }
+
 	public MainPage()
 	{
 		InitializeComponent();
@@ -19,6 +22,8 @@ public partial class MainPage : ContentPage
 		Universities = new ObservableCollection<University>();
 
 		BindingContext = this;
+
+		ButtonCommand = new Command<University>(AddInfoButton_Clicked);
 	}
 
 	protected override void OnAppearing()
@@ -83,36 +88,44 @@ public partial class MainPage : ContentPage
 
     private void SortButton_Clicked(object sender, EventArgs e)
     {
-		string propName = "";
-		var buttonPressed = sender as Button;
+        string propName = "";
+        var buttonPressed = sender as Button;
 
-		if(buttonPressed == NameSortButton)
-			propName = "Name";
-		else if(buttonPressed == CitySortButton)
-			propName = "City";
-		else if(buttonPressed == CountrySortButton)
-			propName = "Country";
-		else if(buttonPressed == StudentsCountSortButton)
-			propName = "StudentsCount";
-		else if(buttonPressed == PriceSortButton)
-			propName = "Price";
+        if (buttonPressed == NameSortButton)
+            propName = "Name";
+        else if (buttonPressed == CitySortButton)
+            propName = "City";
+        else if (buttonPressed == CountrySortButton)
+            propName = "Country";
+        else if (buttonPressed == StudentsCountSortButton)
+            propName = "StudentsCount";
+        else if (buttonPressed == PriceSortButton)
+            propName = "Price";
 
-		if(buttonPressed.Text == "▲")
-		{
-			var predDESCsort = UniversityRepository.predDESC;
-			var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predDESCsort, propName));
+        if (buttonPressed.Text == "▲")
+        {
+            var predDESCsort = UniversityRepository.predDESC;
+            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predDESCsort, propName));
 
-			buttonPressed.Text = "▼";
-			UniversitiesTable.ItemsSource = sortedUniversities;
-		}
-		else if(buttonPressed.Text == "▼")
-		{
-			var predASCsort = UniversityRepository.predASC;
-			var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predASCsort, propName));
+            buttonPressed.Text = "▼";
+            UniversitiesTable.ItemsSource = sortedUniversities;
+        }
+        else if (buttonPressed.Text == "▼")
+        {
+            var predASCsort = UniversityRepository.predASC;
+            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predASCsort, propName));
 
-			buttonPressed.Text = "▲";
-			UniversitiesTable.ItemsSource = sortedUniversities;
-		}
+            buttonPressed.Text = "▲";
+            UniversitiesTable.ItemsSource = sortedUniversities;
+        }
+    }
+
+    private void AddInfoButton_Clicked(University university)
+    {
+		var additionalInfoPage = new AdditionalInfoPage();
+		var aiWindow = new Window(additionalInfoPage);
+
+		App.Current?.OpenWindow(aiWindow);
     }
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)

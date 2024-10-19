@@ -1,0 +1,52 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KursovaApp.AdditionalInfoPage"
+             Title="Університет">
+    <ScrollView>
+        <Grid Padding="20" RowSpacing="10" ColumnSpacing="10">
+            <!-- Layout with 3 rows and 2 columns -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- University Name Label with Binding -->
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding UniversityName}" 
+                   FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!-- University Photo -->
+            <BoxView Grid.Row="1" Grid.Column="0" HeightRequest="150" WidthRequest="150"
+                     BackgroundColor="LightGray" />
+            <Label Grid.Row="1" Grid.Column="0" Text="Фотографія" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+            <!-- University Description with Binding -->
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UniversityDescription}" 
+                   VerticalOptions="Center" HorizontalOptions="Center" />
+
+            <!-- Educational Programs List with Binding -->
+            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding EducationPrograms}" 
+                   VerticalOptions="Center" HorizontalOptions="Center" />
+
+            <!-- Comments Section with Binding -->
+            <Grid Grid.Row="3" Grid.ColumnSpan="2" ColumnSpacing="5" RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Comments}" 
+                       VerticalOptions="Center" HorizontalOptions="Center" />
+
+                <Button Grid.Row="0" Grid.Column="1" Text="Залишити коментар" VerticalOptions="Start" Command="{Binding LeaveCommentCommand}" />
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
