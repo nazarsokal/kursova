@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
 using KursovaApp.Classes;
@@ -18,6 +19,7 @@ public partial class MainPage : ContentPage
 	public MainPage()
 	{
 		InitializeComponent();
+		Debug.WriteLine("MainPage initialized");
 
 		Universities = new ObservableCollection<University>();
 
@@ -130,10 +132,10 @@ public partial class MainPage : ContentPage
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)
 	{
-		var secondWindow = new SpecialSearchPage();
-		var spWindow = new Window(secondWindow);
+		// var secondWindow = new SpecialSearchPage();
+		// var spWindow = new Window(secondWindow);
 
-		Application.Current?.OpenWindow(spWindow);
+		// Application.Current?.OpenWindow(spWindow);
 	}
 }
 
