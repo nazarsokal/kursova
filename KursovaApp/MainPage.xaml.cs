@@ -25,7 +25,7 @@ public partial class MainPage : ContentPage
 	{
 		base.OnAppearing();
 
-		UniversitiesList = university.ReadFile();
+		UniversitiesList = UniversityRepository.ReadFile();
 
 		UniversityRepository universityRepository = new UniversityRepository(UniversitiesList);
 

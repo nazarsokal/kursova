@@ -39,6 +39,37 @@ public class UniversityRepository
             return specialCountUniversities;
     }
 
+    public static List<University> ReadFile()
+    {
+        var universities = new List<University>();
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
+        string fileName = "UniversityList.txt";
+
+        string filePath = Path.Combine(subFolderPath, fileName);
+
+        if (!Directory.Exists(subFolderPath))
+        {
+            Directory.CreateDirectory(subFolderPath);  // This will create the "kursova/KursovaApp" directory if it doesn't exist
+        }
+
+        var lines = File.ReadAllLines(filePath);
+        
+        for (int i = 0; i < lines.Count(); i++)
+        {
+            List<string> lineArray = lines.ToList()[i].Split(',').ToList();
+            List<StudyField> studyFields = StudyField.GetProgramsById(int.Parse(lineArray[0]));
+
+            double averagePrice = studyFields.Sum(n => n.Price) / studyFields.Count;
+
+            universities.Add(new University(_Name: lineArray[1], _City: lineArray[2], _Country: lineArray[3], _StudentsCount: int.Parse(lineArray[4]), 
+            _StudyField: studyFields, _Price: averagePrice));
+        }
+
+        return universities;
+    }
+
     public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName)
     { 
         var newArray = _universities;
