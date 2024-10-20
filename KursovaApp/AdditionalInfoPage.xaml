@@ -16,20 +16,18 @@
             </Grid.ColumnDefinitions>
 
             <!-- University Name Label with Binding -->
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding UniversityName}" 
+            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Name}" 
                    FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
 
             <!-- University Photo -->
-            <BoxView Grid.Row="1" Grid.Column="0" HeightRequest="150" WidthRequest="150"
-                     BackgroundColor="LightGray" />
-            <Label Grid.Row="1" Grid.Column="0" Text="Фотографія" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+            <Image x:Name="UniPicture" Grid.Row="1" Grid.Column="0"/>
 
             <!-- University Description with Binding -->
-            <Label Grid.Row="1" Grid.Column="1" Text="{Binding UniversityDescription}" 
-                   VerticalOptions="Center" HorizontalOptions="Center" />
+            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" 
+                   VerticalOptions="Center" HorizontalOptions="Center" FontSize="30"/>
 
             <!-- Educational Programs List with Binding -->
-            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding EducationPrograms}" 
+            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding StudyFields}" 
                    VerticalOptions="Center" HorizontalOptions="Center" />
 
             <!-- Comments Section with Binding -->
@@ -42,7 +40,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Comments}" 
+                <Label Grid.Row="0" Grid.Column="0" Text="Comments" 
                        VerticalOptions="Center" HorizontalOptions="Center" />
 
                 <Button Grid.Row="0" Grid.Column="1" Text="Залишити коментар" VerticalOptions="Start" Command="{Binding LeaveCommentCommand}" />

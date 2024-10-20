@@ -44,24 +44,28 @@ public partial class MainPage : ContentPage
 				City = item.City,
 				Country = item.Country,
 				StudentsCount = item.StudentsCount,
-				Price = item.Price
+				Price = item.Price,
+				Description = item.Description,
+				StudyFields = item.StudyFields,
+				PhotoPath = item.PhotoPath
 			});
 		}
 	}
-	private void TableInput(List<University> universities)
-	{
-		foreach (var item in universities)
-		{
-			Universities.Add(new University
-			{
-				Name = item.Name,
-				City = item.City,
-				Country = item.Country,
-				StudentsCount = item.StudentsCount,
-				Price = item.Price
-			});
-		}
-	}
+	// private void TableInput(List<University> universities)
+	// {
+	// 	foreach (var item in universities)
+	// 	{
+	// 		Universities.Add(new University
+	// 		{
+	// 			Name = item.Name,
+	// 			City = item.City,
+	// 			Country = item.Country,
+	// 			StudentsCount = item.StudentsCount,
+	// 			Price = item.Price,
+
+	// 		});
+	// 	}
+	// }
 
     private void StudentsCountButtonClicked(object sender, EventArgs e)
     {
@@ -122,12 +126,13 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private void AddInfoButton_Clicked(University university)
+    private async void AddInfoButton_Clicked(University university)
     {
-		var additionalInfoPage = new AdditionalInfoPage();
-		var aiWindow = new Window(additionalInfoPage);
+		// var additionalInfoPage = new AdditionalInfoPage(university);
+		// var aiWindow = new Window(additionalInfoPage);
 
-		App.Current?.OpenWindow(aiWindow);
+		// App.Current?.OpenWindow(aiWindow);
+		await Navigation.PushAsync(new AdditionalInfoPage(university));
     }
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)

@@ -49,6 +49,8 @@ public class UniversityRepository
 
         string filePath = Path.Combine(subFolderPath, fileName);
 
+        string subPhotoFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp", "Photos");
+
         if (!Directory.Exists(subFolderPath))
         {
             Directory.CreateDirectory(subFolderPath);  // This will create the "kursova/KursovaApp" directory if it doesn't exist
@@ -58,13 +60,15 @@ public class UniversityRepository
         
         for (int i = 0; i < lines.Count(); i++)
         {
-            List<string> lineArray = lines.ToList()[i].Split(',').ToList();
+            List<string> lineArray = lines.ToList()[i].Split(';').ToList();
             List<StudyField> studyFields = StudyField.GetProgramsById(int.Parse(lineArray[0]));
 
             double averagePrice = studyFields.Sum(n => n.Price) / studyFields.Count;
+            string photoName = $"uni{i}.jpg";
+            string photoPath = Path.Combine(subPhotoFolderPath, photoName);
 
             universities.Add(new University(_Name: lineArray[1], _City: lineArray[2], _Country: lineArray[3], _StudentsCount: int.Parse(lineArray[4]), 
-            _StudyField: studyFields, _Price: averagePrice));
+            _StudyField: studyFields, _Price: averagePrice, _Description: lineArray[5], _PhotoPath: photoPath));
         }
 
         return universities;

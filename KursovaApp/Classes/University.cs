@@ -8,11 +8,13 @@ public class University : IDescriptionable
     public string City { get; set;}
     public string Country { get; set;}
     public int StudentsCount { get; set;}
-    public List<StudyField> StudyFields { get; }
+    public List<StudyField> StudyFields { get; set;}
     public double Price { get; set;}
     public string Description { get; set; }
 
-    public University(string _Name, string _City, string _Country, int _StudentsCount, List<StudyField> _StudyField, double _Price)
+    public string PhotoPath { get; set; }
+
+    public University(string _Name, string _City, string _Country, int _StudentsCount, List<StudyField> _StudyField, double _Price, string _Description, string _PhotoPath)
     {
         Name = _Name;
         City = _City;
@@ -20,6 +22,8 @@ public class University : IDescriptionable
         StudentsCount = _StudentsCount;
         StudyFields = _StudyField;
         Price = _Price;
+        Description = _Description;
+        PhotoPath = _PhotoPath;
     }
     public University(string _Name, string _City, string _Country, int _StudentsCount, double _Price)
     {
