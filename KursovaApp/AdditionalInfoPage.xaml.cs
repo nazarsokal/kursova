@@ -11,5 +11,8 @@ public partial class AdditionalInfoPage : ContentPage
         BindingContext = university;
 
         UniPicture.Source = university.PhotoPath;
+
+        //StudyFieldsLabel.Text = university.StudyFields.Aggregate("", (current, s) => current + ("•" + s.Name + "\t"));
+        StudyFieldsCollection.ItemsSource = university.StudyFields;
     }
 }

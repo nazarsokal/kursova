@@ -23,15 +23,6 @@ public partial class MainPage : ContentPage
 
 		Universities = new ObservableCollection<University>();
 
-		BindingContext = this;
-
-		ButtonCommand = new Command<University>(AddInfoButton_Clicked);
-	}
-
-	protected override void OnAppearing()
-	{
-		base.OnAppearing();
-
 		UniversitiesList = UniversityRepository.ReadFile();
 
 		UniversityRepository universityRepository = new UniversityRepository(UniversitiesList);
@@ -50,22 +41,11 @@ public partial class MainPage : ContentPage
 				PhotoPath = item.PhotoPath
 			});
 		}
-	}
-	// private void TableInput(List<University> universities)
-	// {
-	// 	foreach (var item in universities)
-	// 	{
-	// 		Universities.Add(new University
-	// 		{
-	// 			Name = item.Name,
-	// 			City = item.City,
-	// 			Country = item.Country,
-	// 			StudentsCount = item.StudentsCount,
-	// 			Price = item.Price,
 
-	// 		});
-	// 	}
-	// }
+		BindingContext = this;
+
+		ButtonCommand = new Command<University>(AddInfoButton_Clicked);
+	}
 
     private void StudentsCountButtonClicked(object sender, EventArgs e)
     {

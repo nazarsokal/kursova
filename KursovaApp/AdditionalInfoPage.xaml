@@ -1,50 +1,98 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KursovaApp.AdditionalInfoPage"
-             Title="Університет">
+             Title="Університет"
+             BackgroundColor="#F0F4F8">
     <ScrollView>
-        <Grid Padding="20" RowSpacing="10" ColumnSpacing="10">
-            <!-- Layout with 3 rows and 2 columns -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="3*"/>
-            </Grid.ColumnDefinitions>
+        <StackLayout Padding="20" Spacing="25">
+            
+            <!-- University Image enlarged and styled -->
+            <Frame HasShadow="True" CornerRadius="20" Padding="0" BackgroundColor="#E8F1F2" HorizontalOptions="Center">
+                <Image x:Name="UniPicture" Aspect="AspectFill"
+                       WidthRequest="500" HeightRequest="350"
+                       Source="{Binding ImageUrl}" 
+                       Margin="10"/>
+            </Frame>
 
-            <!-- University Name Label with Binding -->
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Text="{Binding Name}" 
-                   FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+            <!-- University Name -->
+            <Label Text="{Binding Name}" 
+                   FontSize="40" 
+                   TextColor="#2A9D8F"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
 
-            <!-- University Photo -->
-            <Image x:Name="UniPicture" Grid.Row="1" Grid.Column="0"/>
+            <!-- University Description with added padding and a soft background color -->
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="20">
+                <Label Text="{Binding Description}" 
+                       FontSize="20" 
+                       TextColor="#264653"
+                       LineHeight="1.6"
+                       HorizontalOptions="FillAndExpand" 
+                       VerticalOptions="Center" />
+            </Frame>
 
-            <!-- University Description with Binding -->
-            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Description}" 
-                   VerticalOptions="Center" HorizontalOptions="Center" FontSize="30"/>
+            <!-- Educational Programs section with vibrant colors -->
+            <Grid Padding="20">
+                <!-- Grid with two columns: Left for educational programs, right for comments -->
+                <Grid ColumnDefinitions="2*, 4*">
 
-            <!-- Educational Programs List with Binding -->
-            <Label Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding StudyFields}" 
-                   VerticalOptions="Center" HorizontalOptions="Center" />
+                    <!-- Left side - Educational Programs -->
+                   <StackLayout Grid.Column="0" Padding="10" >
+                        <Label Text="Освітні програми, які пропонує університет" 
+                            FontSize="30" 
+                            FontAttributes="Bold"
+                            TextColor="#2A9D8F" />
+                        <Frame BorderColor="#B8D8D8" CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF">
+                            <CollectionView x:Name="StudyFieldsCollection"
+                                            HorizontalScrollBarVisibility="Never"
+                                            VerticalOptions="Start"
+                                            HorizontalOptions="FillAndExpand"
+                                            HeightRequest="300">
+                                <CollectionView.Header>
+                                    <StackLayout Padding="10">
+                                        <Label Text="Освітні програми" 
+                                            FontSize="30" 
+                                            FontAttributes="Bold"
+                                            TextColor="#2A9D8F" />
+                                    </StackLayout>
+                                </CollectionView.Header>
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding FieldName, StringFormat='• {0}'}"
+                                            FontSize="25"
+                                            TextColor="#264653"
+                                            FontAttributes="Bold" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </Frame>
+                    </StackLayout>
 
-            <!-- Comments Section with Binding -->
-            <Grid Grid.Row="3" Grid.ColumnSpan="2" ColumnSpacing="5" RowSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                    <!-- Right side - Comments Section -->
+                    <StackLayout Grid.Column="1" Padding="10">
+                        <Label Text="Коментарі" 
+                            FontSize="30" 
+                            FontAttributes="Bold"
+                            TextColor="#2A9D8F" />
+                        <Editor x:Name="CommentsEditor" 
+                                Placeholder="Залиште свій коментар..."
+                                AutoSize="TextChanges"
+                                HeightRequest="300"
+                                FontSize="20"
+                                BackgroundColor="#FFFFFF"
+                                Margin="0,10,0,20" />
+                        <Button Text="Залишити коментар"
+                                FontSize="20"
+                                TextColor="White"
+                                BackgroundColor="#2A9D8F"
+                                CornerRadius="15"
+                                HeightRequest="50"
+                                VerticalOptions="EndAndExpand" />
+                    </StackLayout>
 
-                <Label Grid.Row="0" Grid.Column="0" Text="Comments" 
-                       VerticalOptions="Center" HorizontalOptions="Center" />
-
-                <Button Grid.Row="0" Grid.Column="1" Text="Залишити коментар" VerticalOptions="Start" Command="{Binding LeaveCommentCommand}" />
+                </Grid>
             </Grid>
-        </Grid>
+        </StackLayout>
     </ScrollView>
 </ContentPage>

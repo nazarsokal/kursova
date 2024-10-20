@@ -3,13 +3,13 @@ namespace KursovaApp.Classes;
 public class StudyField : IDescriptionable
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string FieldName { get; set; }
     public double Price { get; set; }
     public string Description { get; set; }
 
     public StudyField(string _Name, double _Price, string _Description)
     {
-        Name = _Name;
+        FieldName = _Name;
         Price = _Price;
         Description = _Description;
     }
@@ -67,7 +67,7 @@ public class StudyField : IDescriptionable
                     currentList.Add(new StudyField
                     {
                         Id = currentId,
-                        Name = name,
+                        FieldName = name,
                         Price = price,
                         Description = description
                     });
@@ -93,7 +93,7 @@ public class StudyField : IDescriptionable
                 currentList.Add(new StudyField
                 {
                     Id = currentId,
-                    Name = name,
+                    FieldName = name,
                     Price = price,
                     Description = description
                 });
