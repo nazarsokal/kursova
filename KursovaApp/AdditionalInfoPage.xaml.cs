@@ -5,27 +5,37 @@ namespace KursovaApp;
 public partial class AdditionalInfoPage : ContentPage
 {
     private List<Feedback> feedbacksList = new List<Feedback>();
-    public AdditionalInfoPage(University university)
+    private readonly University SelectedUniversity;
+    public AdditionalInfoPage(University _university)
     {
         InitializeComponent();
 
-        BindingContext = university;
+        SelectedUniversity = _university;
 
-        UniPicture.Source = university.PhotoPath;
+        BindingContext = SelectedUniversity;
+
+        UniPicture.Source = SelectedUniversity.PhotoPath;
 
         //StudyFieldsLabel.Text = university.StudyFields.Aggregate("", (current, s) => current + ("•" + s.Name + "\t"));
-        StudyFieldsCollection.ItemsSource = university.StudyFields;
+        StudyFieldsCollection.ItemsSource = SelectedUniversity.StudyFields;
 
-        feedbacksList = FeedbackRepository.ReadFeedbacksFromFile(university);
         UpdateTable();
     }
 
     private void UpdateTable()
     {
+        feedbacksList = FeedbackRepository.ReadFeedbacksFromFile(SelectedUniversity);
         CommentsCollectionView.ItemsSource = feedbacksList.OrderByDescending(n => n.PublishDate);
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private void PublishCommentButton_Clicked(object sender, EventArgs e)
     {
+        var userName = NameEntry.Text;
+        var message = CommentEditor.Text;
+
+        Feedback feedbackToWrite = new Feedback(SelectedUniversity.Name, userName, DateTime.Now, message);
+
+        FeedbackRepository.WriteFeedbackToFile(SelectedUniversity, feedbackToWrite);
+        UpdateTable();
     }
 }

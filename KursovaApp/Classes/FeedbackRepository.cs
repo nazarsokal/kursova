@@ -26,5 +26,16 @@ public static class FeedbackRepository
         return feedbacks;
     }
 
-    
+    public static void WriteFeedbackToFile(University university, Feedback feedback)
+    {
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
+        string fileName = "Feedbacks.txt";
+
+        string filePath = Path.Combine(subFolderPath, fileName);
+        string strToWrite = $"{university.Name};{feedback.Username};{feedback.PublishDate};{feedback.Message}";
+
+        using (StreamWriter sw = File.AppendText(filePath)) { sw.WriteLine(strToWrite); }
+    }  
 }
