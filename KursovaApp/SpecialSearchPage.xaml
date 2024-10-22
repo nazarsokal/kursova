@@ -1,6 +1,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="KursovaApp.SpecialSearchPage"
-             WidthRequest="4000" HeightRequest="900" Title="Special Search"> <!-- Розмір вікна збільшено -->
-        <Button Text="xxxx"></Button>
+             x:Class="KursovaApp.SpecialSearchPage">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- First Line - TextBox -->
+        <Entry Placeholder="Type here" />
+
+        <!-- Second Line - Price -->
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Ціна" Grid.Column="0" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Placeholder="Min Price" HorizontalOptions="StartAndExpand"/>
+            <Entry Grid.Column="2" Placeholder="Max Price" HorizontalOptions="EndAndExpand"/>
+        </Grid>
+
+        <!-- Third Line - Number of Students -->
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="К-сть студентів" Grid.Column="0" VerticalOptions="Center"/>
+            <Entry Grid.Column="1" Placeholder="Min Students" HorizontalOptions="StartAndExpand"/>
+            <Entry Grid.Column="2" Placeholder="Max Students" HorizontalOptions="EndAndExpand"/>
+        </Grid>
+
+        <!-- Fourth Line - Countries Dropdown -->
+        <Grid ColumnDefinitions="*,*" Padding="0,20,0,0">
+            <Label Text="Країни" Grid.Column="0" VerticalOptions="Center"/>
+            <Picker x:Name="CountryPicker" Grid.Column="1" ItemsSource="{Binding Countries}" Title="Select a country"/>
+        </Grid>
+
+        <!-- Search Button -->
+        <Button Text="Search Button" HorizontalOptions="Center" VerticalOptions="End"/>
+
+    </VerticalStackLayout>
+
 </ContentPage>

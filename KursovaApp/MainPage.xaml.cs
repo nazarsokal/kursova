@@ -49,19 +49,24 @@ public partial class MainPage : ContentPage
 
     private void StudentsCountButtonClicked(object sender, EventArgs e)
     {
-		int minStudentCount = int.Parse(StartEntry.Text);
-		int maxStudentCount = int.Parse(MaxEntry.Text);
-
-        if (minStudentCount != 0 && maxStudentCount != 0)
+		if (StartEntry.Text != null && MaxEntry.Text != null)
         {
-            var specialSCUniversities = new ObservableCollection<University>(UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount));
-            if (specialSCUniversities.Count == 0)
-                DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
-
-            UniversitiesTable.ItemsSource = specialSCUniversities;
+            int minStudentCount = int.Parse(StartEntry.Text);
+            int maxStudentCount = int.Parse(MaxEntry.Text);
+    
+            if (minStudentCount != 0 && maxStudentCount != 0)
+            {
+                var specialSCUniversities = new ObservableCollection<University>(UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount));
+                if (specialSCUniversities.Count == 0)
+                    DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
+    
+                UniversitiesTable.ItemsSource = specialSCUniversities;
+            }
+            else
+                DisplayAlert("Помилка", "Ви не ввели усіх необхідних даних", "ОК");
         }
         else
-            DisplayAlert("Помилка", "Ви не ввели усіх необхідних даних", "ОК");
+            UniversitiesTable.ItemsSource = Universities;
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -117,10 +122,10 @@ public partial class MainPage : ContentPage
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)
 	{
-		// var secondWindow = new SpecialSearchPage();
-		// var spWindow = new Window(secondWindow);
+		var secondWindow = new SpecialSearchPage(UniversitiesList);
+		var spWindow = new Window(secondWindow);
 
-		// Application.Current?.OpenWindow(spWindow);
+		Application.Current?.OpenWindow(spWindow);
 	}
 }
 

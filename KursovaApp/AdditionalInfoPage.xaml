@@ -7,7 +7,7 @@
         <StackLayout Padding="20" Spacing="25">
             
             <!-- University Image enlarged and styled -->
-            <Frame HasShadow="True" CornerRadius="20" Padding="0" BackgroundColor="#E8F1F2" HorizontalOptions="Center">
+            <Frame CornerRadius="20" Padding="0" BackgroundColor="#E8F1F2" HorizontalOptions="Center" HasShadow="False">
                 <Image x:Name="UniPicture" Aspect="AspectFill"
                        WidthRequest="500" HeightRequest="350"
                        Source="{Binding ImageUrl}" 
@@ -23,7 +23,7 @@
                    HorizontalTextAlignment="Center" />
 
             <!-- University Description with added padding and a soft background color -->
-            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="20">
+            <Frame BackgroundColor="#FFFFFF" CornerRadius="15" Padding="20" HasShadow="False">
                 <Label Text="{Binding Description}" 
                        FontSize="20" 
                        TextColor="#264653"
@@ -32,66 +32,126 @@
                        VerticalOptions="Center" />
             </Frame>
 
-            <!-- Educational Programs section with vibrant colors -->
+            <!-- Main Grid for Study Fields and Comment Section -->
             <Grid Padding="20">
                 <!-- Grid with two columns: Left for educational programs, right for comments -->
-                <Grid ColumnDefinitions="2*, 4*">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
 
-                    <!-- Left side - Educational Programs -->
-                   <StackLayout Grid.Column="0" Padding="10" >
-                        <Label Text="Освітні програми, які пропонує університет" 
+                <!-- Left side - Educational Programs -->
+                <StackLayout Grid.Column="0" Padding="10">
+                    <Label Text="Освітні програми" 
+                           FontSize="30" 
+                           FontAttributes="Bold"
+                           TextColor="#2A9D8F" />
+                    <Frame BorderColor="#B8D8D8" CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF" HasShadow="False">
+                        <CollectionView x:Name="StudyFieldsCollection"
+                                        HorizontalScrollBarVisibility="Never"
+                                        VerticalOptions="Start"
+                                        HorizontalOptions="FillAndExpand"
+                                        HeightRequest="300">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Text="{Binding FieldName, StringFormat='• {0}'}"
+                                           FontSize="25"
+                                           TextColor="#264653"
+                                           FontAttributes="Bold" />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </Frame>
+                </StackLayout>
+
+                <!-- Right side - Comments Section -->
+                <StackLayout Grid.Column="1" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Text="Написати відгук" 
                             FontSize="30" 
                             FontAttributes="Bold"
-                            TextColor="#2A9D8F" />
-                        <Frame BorderColor="#B8D8D8" CornerRadius="15" Padding="10" BackgroundColor="#FFFFFF">
-                            <CollectionView x:Name="StudyFieldsCollection"
-                                            HorizontalScrollBarVisibility="Never"
-                                            VerticalOptions="Start"
-                                            HorizontalOptions="FillAndExpand"
-                                            HeightRequest="300">
-                                <CollectionView.Header>
-                                    <StackLayout Padding="10">
-                                        <Label Text="Освітні програми" 
-                                            FontSize="30" 
-                                            FontAttributes="Bold"
-                                            TextColor="#2A9D8F" />
-                                    </StackLayout>
-                                </CollectionView.Header>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Label Text="{Binding FieldName, StringFormat='• {0}'}"
-                                            FontSize="25"
-                                            TextColor="#264653"
-                                            FontAttributes="Bold" />
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
+                            TextColor="#2A9D8F"
+                            Grid.Column="0"
+                            HorizontalOptions="Start" />
+                        
+                        <Label Text="Відгуки" 
+                            FontSize="30" 
+                            FontAttributes="Bold"
+                            TextColor="#2A9D8F"
+                            Grid.Column="1"
+                            HorizontalOptions="End" />
+                    </Grid>
+
+                                        <!-- Main Grid for the layout -->
+                    <Grid ColumnDefinitions="*,*" Padding="10">
+                        <!-- Left side - Writing a Comment inside a Frame -->
+                        <Frame BorderColor="#B8D8D8" Padding="10" CornerRadius="15" HasShadow="False" Grid.Column="0">
+                            <StackLayout Padding="10">
+                                <!-- Name Entry -->
+                                <Entry Placeholder="Enter your name"
+                                    x:Name="NameEntry"
+                                    HorizontalOptions="FillAndExpand" 
+                                    FontSize="25"/>
+
+                                <!-- Comment Entry -->
+                                <Editor Placeholder="Write your comment"
+                                        x:Name="CommentEditor"
+                                        HeightRequest="150"
+                                        HorizontalOptions="FillAndExpand" 
+                                        FontSize="25"/>
+
+                                <!-- Publish Button -->
+                                <Button Text="Publish comment"
+                                        HorizontalOptions="FillAndExpand"
+                                        BackgroundColor="#2A9D8F"
+                                        TextColor="White"
+                                        FontAttributes="Bold"
+                                        HeightRequest="50"
+                                        Clicked="PublishCommentButton_Clicked"/>
+                            </StackLayout>
                         </Frame>
-                    </StackLayout>
 
-                    <!-- Right side - Comments Section -->
-                    <StackLayout Grid.Column="1" Padding="10">
-                        <Label Text="Коментарі" 
-                            FontSize="30" 
-                            FontAttributes="Bold"
-                            TextColor="#2A9D8F" />
-                        <Editor x:Name="CommentsEditor" 
-                                Placeholder="Залиште свій коментар..."
-                                AutoSize="TextChanges"
-                                HeightRequest="300"
-                                FontSize="20"
-                                BackgroundColor="#FFFFFF"
-                                Margin="0,10,0,20" />
-                        <Button Text="Залишити коментар"
-                                FontSize="20"
-                                TextColor="White"
-                                BackgroundColor="#2A9D8F"
-                                CornerRadius="15"
-                                HeightRequest="50"
-                                VerticalOptions="EndAndExpand" />
-                    </StackLayout>
+                        <!-- Right side - Displaying Comments inside a separate Frame -->
+                        <Frame BorderColor="#B8D8D8" Padding="10" CornerRadius="15" HasShadow="False" Grid.Column="1">
+                            <StackLayout Padding="10">
+                                <CollectionView x:Name="CommentsCollectionView" HeightRequest="300">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Spacing="10">
+                                                <!-- Username and Date on the same row -->
+                                                <Grid ColumnDefinitions="*,*">
+                                                    <Label Text="{Binding Username}" 
+                                                        FontSize="20" 
+                                                        TextColor="#264653" 
+                                                        FontAttributes="Bold" 
+                                                        Margin="0,0,10,0"/>
+                                                    <Label Text="{Binding PublishDate}"
+                                                        FontSize="20"
+                                                        TextColor="#264653"
+                                                        HorizontalOptions="End" />
+                                                </Grid>
 
-                </Grid>
+                                                <!-- Comment content displayed dynamically -->
+                                                <Frame BorderColor="Black" CornerRadius="15" Margin="0,0,0,10" BackgroundColor="#FFFFFF" HasShadow="False">
+                                                    <Label Text="{Binding Message}" 
+                                                        FontSize="18" 
+                                                        TextColor="#264653" 
+                                                        LineBreakMode="WordWrap" />
+                                                </Frame>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+
+                </StackLayout>
             </Grid>
         </StackLayout>
     </ScrollView>
