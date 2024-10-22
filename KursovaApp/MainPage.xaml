@@ -3,7 +3,6 @@
              x:Class="KursovaApp.MainPage"
              Title="Kurso"
              BackgroundColor="#F0F4F8">
-
     <Grid Padding="20">
         <!-- Search bar and buttons at the top -->
         <Grid RowDefinitions="Auto, Auto" Margin="0,0,0,20">
@@ -91,15 +90,6 @@
                 <StackLayout Grid.Column="1" Padding="0,0,20,0" WidthRequest="250" Spacing="20">
                     <Label Text="Фільтри" FontSize="24" FontAttributes="Bold" TextColor="#2A9D8F" />
                     
-                    <!-- Sort by Student Count -->
-                    <StackLayout Spacing="10">
-                        <Label Text="Відсортувати за кількістю студентів" FontSize="18" TextColor="#264653" />
-                        <StackLayout Orientation="Horizontal" Spacing="10">
-                            <Button Text="Зростання" FontSize="16" BackgroundColor="#2A9D8F" TextColor="White" WidthRequest="120" />
-                            <Button Text="Спадання" FontSize="16" BackgroundColor="#264653" TextColor="White" WidthRequest="120" />
-                        </StackLayout>
-                    </StackLayout>
-
                     <!-- Filter by Student Count Range -->
                     <StackLayout Spacing="10">
                         <Label Text="Кількість студентів" FontSize="18" TextColor="#264653" />
@@ -107,6 +97,13 @@
                             <Entry x:Name="StartEntry" Placeholder="Від..." WidthRequest="100" BackgroundColor="#F9FBFC" TextColor="#264653" />
                             <Entry x:Name="MaxEntry" Placeholder="До..." WidthRequest="100" BackgroundColor="#F9FBFC" TextColor="#264653" />
                         </StackLayout>
+                    </StackLayout>
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Країна" FontSize="18" TextColor="#264653"/>
+                        <Picker x:Name="CountryPicker" Title="Виберіть країну">
+
+                        </Picker>
                     </StackLayout>
 
                     <!-- Apply Filter Button -->

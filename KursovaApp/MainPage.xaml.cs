@@ -111,14 +111,7 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void AddInfoButton_Clicked(University university)
-    {
-		// var additionalInfoPage = new AdditionalInfoPage(university);
-		// var aiWindow = new Window(additionalInfoPage);
-
-		// App.Current?.OpenWindow(aiWindow);
-		await Navigation.PushAsync(new AdditionalInfoPage(university));
-    }
+    private async void AddInfoButton_Clicked(University university) => await Navigation.PushAsync(new AdditionalInfoPage(university));
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)
 	{
