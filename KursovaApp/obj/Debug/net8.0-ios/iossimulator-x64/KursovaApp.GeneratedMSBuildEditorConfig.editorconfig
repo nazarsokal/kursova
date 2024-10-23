@@ -58,6 +58,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.Resources.Style
 build_metadata.AdditionalFiles.TargetPath = Resources/Styles/Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources/Styles/Styles.xaml
 
+[/Users/asokalch/Documents/GitHub/kursova/KursovaApp/SignInPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.SignInPage.xaml
+build_metadata.AdditionalFiles.TargetPath = SignInPage.xaml
+build_metadata.AdditionalFiles.RelativePath = SignInPage.xaml
+
 [/Users/asokalch/Documents/GitHub/kursova/KursovaApp/SpecialSearchPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.SpecialSearchPage.xaml

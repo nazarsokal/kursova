@@ -300,9 +300,3 @@
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/KursovaApp.pdb
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/KursovaApp.genruntimeconfig.cache
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/ref/KursovaApp.dll
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/Microsoft.Maui.Controls.HotReload.Forms.dll
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/Microsoft.VisualStudio.DesignTools.TapContract.dll
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/resourcestamps/Microsoft.Maui.Controls.HotReload.Forms.stamp
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/resourcestamps/Microsoft.VisualStudio.DesignTools.MobileTapContracts.stamp
-/Users/asokalch/Documents/GitHub/kursova/KursovaApp/obj/Debug/net8.0-maccatalyst/maccatalyst-x64/resourcestamps/Microsoft.VisualStudio.DesignTools.TapContract.stamp
