@@ -10,19 +10,19 @@ public partial class App : Application
 		InitializeComponent();
 		Debug.WriteLine("App initialized");
 		MainPage = new AppShell();
-
-		ResizeWindow(2000, 800);
 	}
 
         // Method to resize window without using UIWindow
-	public void ResizeWindow(double width, double height)
-	{
-		var window = Application.Current?.Windows.FirstOrDefault();
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        var window = base.CreateWindow(activationState);
 
-		if (window != null)
-		{
-			window.Width = width;
-			window.Height = height;
-		}
-	}
+        const int newWidth = 800;
+        const int newHeight = 600;
+        
+        window.Width = newWidth;
+        window.Height = newHeight;
+
+        return window;
+    }
 }

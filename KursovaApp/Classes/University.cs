@@ -36,6 +36,6 @@ public class University : IDescriptionable
 
     public University()
     {
-
+        
     }
 }

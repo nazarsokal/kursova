@@ -49,6 +49,9 @@
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.Maui.dll
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.Maui.Essentials.dll
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.Maui.Graphics.dll
+/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.Maui.Controls.HotReload.Forms.dll
+/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.VisualStudio.DesignTools.MobileTapContracts.dll
+/Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.VisualStudio.DesignTools.TapContract.dll
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/KursovaApp.dll
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.CSharp.dll
 /Users/asokalch/Documents/GitHub/kursova/KursovaApp/bin/Debug/net8.0-maccatalyst/maccatalyst-x64/publish/../KursovaApp.app/Contents/MonoBundle/Microsoft.VisualBasic.Core.dll
