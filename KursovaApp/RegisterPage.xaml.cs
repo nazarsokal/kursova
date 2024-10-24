@@ -32,4 +32,9 @@ public partial class RegisterPage : ContentPage
 
     public bool ContainsTheSameUserName(string userName) => Person.ReadFromFile().Any(n => n.UserName == userName);
     public bool ContainsTheSameEmail(string email) => Person.ReadFromFile().Any(n => n.Email == email);
+
+    async private void OnLabelTapped(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new SignInPage());
+    }
 }

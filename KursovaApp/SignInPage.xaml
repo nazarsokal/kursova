@@ -1,6 +1,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="KursovaApp.SignInPage"
-             Title="Register">
+             Title="Sign in">
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="30" Spacing="20">
+            
+            <!-- Logo or Image (Optional) -->
+            <Image Source="/Users/asokalch/Library/Containers/com.companyname.kursovaapp/Data/Documents/Desktop/kursova/KursovaApp/StaticContent/logo3.png" HorizontalOptions="Center" HeightRequest="100" WidthRequest="100" />
 
+            <!-- Username Field -->
+            <Entry x:Name="UsernameEntry"
+                   Placeholder="Username"
+                   Keyboard="Default"
+                   HorizontalOptions="FillAndExpand"
+                   TextColor="Black"
+                   PlaceholderColor="Gray"
+                   BackgroundColor="White"
+                   Margin="0,20,0,0" />
+
+            <!-- Password Field -->
+            <Entry x:Name="PasswordEntry"
+                   Placeholder="Password"
+                   IsPassword="True"
+                   Keyboard="Default"
+                   HorizontalOptions="FillAndExpand"
+                   TextColor="Black"
+                   PlaceholderColor="Gray"
+                   BackgroundColor="White"
+                   Margin="0,20,0,0" />
+
+            <!-- Login Button -->
+            <Button Text="Login"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Pressed="RegisterButton_Pressed" />
+
+            
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
 </ContentPage>
