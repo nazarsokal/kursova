@@ -22,6 +22,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.AdditionalInfoP
 build_metadata.AdditionalFiles.TargetPath = AdditionalInfoPage.xaml
 build_metadata.AdditionalFiles.RelativePath = AdditionalInfoPage.xaml
 
+[/Users/asokalch/Documents/GitHub/kursova/KursovaApp/AdminMainPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.AdminMainPage.xaml
+build_metadata.AdditionalFiles.TargetPath = AdminMainPage.xaml
+build_metadata.AdditionalFiles.RelativePath = AdminMainPage.xaml
+
 [/Users/asokalch/Documents/GitHub/kursova/KursovaApp/App.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = KursovaApp.App.xaml

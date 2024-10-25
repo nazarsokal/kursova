@@ -8,13 +8,11 @@ namespace KursovaApp;
 
 public partial class MainPage : ContentPage
 {
-	private readonly University university = new University();
-
 	public ObservableCollection<University> Universities {get; set;}
-
 	public List<University> UniversitiesList {get; private set;} 
-
+    public List<University> CurrentState {get; private set; }
 	public ICommand ButtonCommand { get; }
+    public User _User { get; set; }
 
 	public MainPage()
 	{
@@ -43,6 +41,7 @@ public partial class MainPage : ContentPage
 		}
 
 		BindingContext = this;
+        CurrentState = UniversitiesList;
 
 		ButtonCommand = new Command<University>(AddInfoButton_Clicked);
 	}
@@ -56,7 +55,8 @@ public partial class MainPage : ContentPage
     
             if (minStudentCount != 0 && maxStudentCount != 0)
             {
-                var specialSCUniversities = new ObservableCollection<University>(UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount));
+                CurrentState = UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount);
+                var specialSCUniversities = new ObservableCollection<University>(CurrentState);
                 if (specialSCUniversities.Count == 0)
                     DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
     
@@ -96,7 +96,7 @@ public partial class MainPage : ContentPage
         if (buttonPressed.Text == "▲")
         {
             var predDESCsort = UniversityRepository.predDESC;
-            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predDESCsort, propName));
+            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predDESCsort, propName, CurrentState));
 
             buttonPressed.Text = "▼";
             UniversitiesTable.ItemsSource = sortedUniversities;
@@ -104,7 +104,7 @@ public partial class MainPage : ContentPage
         else if (buttonPressed.Text == "▼")
         {
             var predASCsort = UniversityRepository.predASC;
-            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predASCsort, propName));
+            var sortedUniversities = new ObservableCollection<University>(UniversityRepository.SortUniversities(predASCsort, propName, CurrentState));
 
             buttonPressed.Text = "▲";
             UniversitiesTable.ItemsSource = sortedUniversities;

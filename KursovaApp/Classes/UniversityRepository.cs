@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Reflection;
 
 namespace KursovaApp.Classes;
@@ -74,23 +75,21 @@ public class UniversityRepository
         return universities;
     }
 
-    public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName)
+    public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName, List<University> Universities)
     { 
-        var newArray = _universities;
+        var newArray = Universities;
 
         PropertyInfo propertyInfo = typeof(University).GetProperty(propertyName);
         if(propertyInfo == null)
             throw new NullReferenceException("No such Property");
 
-        // Shell sort with decreasing interval
         for (int interval = newArray.Count / 2; interval > 0; interval /= 2) 
         { 
-            for (int i = interval; i < _universities.Count; i++) 
+            for (int i = interval; i < Universities.Count; i++) 
             { 
                 University temp = newArray[i]; 
                 var j = i; 
                 
-                // Sort in ascending order, so check for greater values to move
                 while (j >= interval && checkSortOrder(newArray[j - interval], temp, propertyInfo)) 
                 { 
                     newArray[j] = newArray[j - interval]; 
@@ -118,4 +117,9 @@ public class UniversityRepository
 
     public static bool predASC(University un1, University un2, PropertyInfo propertyInfo) => PropertyCompare(un1, un2, propertyInfo) > 0;
     public static bool predDESC(University un1, University un2, PropertyInfo propertyInfo) => PropertyCompare(un1, un2, propertyInfo) < 0;
+
+    public static void SetUniversities(List<University> universities)
+    {
+        _universities = universities;
+    }
 }

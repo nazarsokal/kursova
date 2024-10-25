@@ -9,6 +9,6 @@
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:RegisterPage}" />
+        ContentTemplate="{DataTemplate local:MainPage}" />
     
 </Shell>
