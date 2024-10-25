@@ -75,6 +75,20 @@ public class UniversityRepository
         return universities;
     }
 
+    public static void WriteUniversityToFile(University university, int id)
+    {
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
+        string fileName = "UniversityList.txt";
+
+        string filePath = Path.Combine(subFolderPath, fileName);
+
+        string strToWrite = $"{id};{university.Name};{university.City};{university.Country};{university.StudentsCount};{university.Description}";
+
+        using (StreamWriter sw = File.AppendText(filePath)) { sw.WriteLine("\n" + strToWrite); }
+    }
+
     public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName, List<University> Universities)
     { 
         var newArray = Universities;

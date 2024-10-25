@@ -28,7 +28,6 @@ public class StudyField : IDescriptionable
 
         string filePath = Path.Combine(subFolderPath, fileName);
 
-        // Зчитуємо всі рядки з файлу
         List<string> lines = File.ReadAllLines(filePath).ToList();
 
         List<StudyField> currentList = null;
@@ -36,34 +35,27 @@ public class StudyField : IDescriptionable
 
         foreach (var line in lines)
         {
-            // Перевіряємо, чи рядок починається з нового ID
             var idSplit = line.Split(',');
             if (idSplit.Length > 1 && int.TryParse(idSplit[0], out int id))
             {
                 if (id != currentId)
                 {
-                    // Якщо id змінився, оновлюємо поточний id
                     currentId = id;
                 }
 
-                // Якщо це ID, яке ми шукаємо, створюємо новий список
                 if (id == searchId)
                 {
-                    currentList ??= new List<StudyField>(); // ініціалізуємо список, якщо він ще не існує
+                    currentList ??= new List<StudyField>();
 
-                    // Розділяємо частину з даними на ім'я програми, ціну і опис
                     var programSplit = idSplit[1].Split(':');
                     if (programSplit.Length < 2) continue;
 
-                    // Отримуємо ім'я і ціну програми
                     var nameAndPrice = programSplit[0].Split('(');
                     string name = nameAndPrice[0].Trim();
                     double price = double.Parse(nameAndPrice[1].TrimEnd(')'));
 
-                    // Отримуємо опис програми
                     string description = programSplit[1].Trim();
 
-                    // Додаємо новий об'єкт StudyFields до поточного списку
                     currentList.Add(new StudyField
                     {
                         Id = currentId,
@@ -74,13 +66,11 @@ public class StudyField : IDescriptionable
                 }
                 else if (id > searchId && currentList != null)
                 {
-                    // Якщо ми перейшли до наступного ID після пошуку, закінчуємо пошук
                     break;
                 }
             }
             else if (currentList != null && currentId == searchId)
             {
-                // Якщо продовжується опис для поточного ID, який шукаємо
                 var programSplit = line.Split(':');
                 if (programSplit.Length < 2) continue;
 
@@ -100,6 +90,22 @@ public class StudyField : IDescriptionable
             }
         }
 
-        return currentList; // Повертаємо список для вказаного ID
+        return currentList;
+    }
+
+    public static void WriteStudyFieldToFile(List<StudyField> studyFields, int id)
+    {
+        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
+        string fileName = "StudyFields.txt";
+
+        string filePath = Path.Combine(subFolderPath, fileName);
+
+        foreach (var item in studyFields)
+        {
+            string strToWrite = $"{id},{item.FieldName}({item.Price}):{item.Description}";
+            using (StreamWriter sw = File.AppendText(filePath)) { sw.WriteLine("\n" + strToWrite); }
+        }
     }
 }

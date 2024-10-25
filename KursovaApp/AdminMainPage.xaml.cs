@@ -37,5 +37,13 @@ public partial class AdminMainPage : ContentPage
 		BindingContext = this;
     }
 
+    private void AddUniversityButton_Clicked(object sender, EventArgs e)
+    {
+		var secondWindow = new AddUniversityPage(UniversitiesList);
+		var spWindow = new Window(secondWindow);
+
+		Application.Current?.OpenWindow(spWindow);
+    }
+
     
 }

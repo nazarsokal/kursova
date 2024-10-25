@@ -15,22 +15,36 @@ public partial class SignInPage : ContentPage
         var PasswordEntered = PasswordEntry.Text;
 
         var personList = Person.ReadFromFile();
-        if(personList.Any(n => n.UserName == UsernameEntered && n.Password == PasswordEntered))
+        var person = personList.Find(n => n.UserName == UsernameEntered && n.Password == PasswordEntered);
+
+        try
         {
-            Person person = personList.Find(n => n.UserName == UsernameEntered && n.Password == PasswordEntered);
-            if(person?.Status == "Admin")
+            if (person != null)
             {
-                Admin admin = person as Admin;
-                await Navigation.PushAsync(new AdminMainPage() {_Admin = admin});
+                if (person.Status == "Admin")
+                {
+                    Admin admin = person as Admin;
+                    await Navigation.PushAsync(new AdminMainPage() { _Admin = admin });
+                }
+                else if (person.Status == "User")
+                {
+                    User user = person as User;
+                    await Navigation.PushAsync(new MainPage() { _User = user });
+                }
+                else
+                {
+                    await DisplayAlert("Error", "Invalid user status.", "OK");
+                }
             }
-            else if(person?.Status == "User")
+            else
             {
-                User user = person as User;
-                await Navigation.PushAsync(new MainPage() {_User = user});
+                await DisplayAlert("Error", "Invalid username or password.", "OK");
             }
         }
-        else
-            await DisplayAlert("Ok", "Hyjna", "ok");
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", ex.Message, "OK");
+        }
     }
 
 }

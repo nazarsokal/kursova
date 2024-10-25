@@ -33,6 +33,15 @@ public class University : IDescriptionable
         StudentsCount = _StudentsCount;
         Price = _Price;
     }
+    public University(string _Name, string _City, string _Country, int _StudentsCount, double _Price, string _Description)
+    {
+        Name = _Name;
+        City = _City;
+        Country = _Country;
+        StudentsCount = _StudentsCount;
+        Price = _Price;
+        Description = _Description;
+    }
 
     public University()
     {

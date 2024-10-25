@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KursovaApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+0cebcc67f8ff8ee5e1da6567818ec117d7c35222")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+65652e3df590fd971cdf541500b476923cb45392")]
 [assembly: System.Reflection.AssemblyProductAttribute("KursovaApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KursovaApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

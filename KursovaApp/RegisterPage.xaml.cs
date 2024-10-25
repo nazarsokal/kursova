@@ -17,7 +17,7 @@ public partial class RegisterPage : ContentPage
             {
                 if(!ContainsTheSameUserName(UsernameEntry.Text) && !ContainsTheSameEmail(EmailEntry.Text))
                 {
-                    User person = new User(UsernameEntry.Text, PasswordEntry.Text, DateTime.Now, EmailEntry.Text, User.GetIp());
+                    User person = new User(UsernameEntry.Text, EmailEntry.Text, DateTime.Now, PasswordEntry.Text, User.GetIp());
                     person.RegisterUserToFile("User");
                     await DisplayAlert("Success", "Ви успішно зареєструвалися у системі", "OK");
                 }

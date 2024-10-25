@@ -1,0 +1,64 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="KursovaApp.AddUniversityPage"
+             Title="Додати Університет"
+             BackgroundColor="#F0F4F8">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            
+            <!-- Поле для назви університету -->
+            <Label Text="Назва" FontSize="Medium"/>
+            <Entry Placeholder="Введіть назву університету" x:Name="UniversityNameEntry"/>
+
+            <!-- Поле для міста -->
+            <Label Text="Місто" FontSize="Medium"/>
+            <Entry Placeholder="Введіть місто" x:Name="CityEntry"/>
+
+            <!-- Поле для країни -->
+            <Label Text="Країна" FontSize="Medium"/>
+            <Entry Placeholder="Введіть країну" x:Name="CountryEntry"/>
+
+            <Label Text="Опис" FontSize="Medium"/>
+            <Entry Placeholder="Введіть країну" x:Name="DescriptionEntry"/>
+
+            <!-- Поле для кількості студентів -->
+            <Label Text="Кількість студентів" FontSize="Medium"/>
+            <Stepper x:Name="StudentCountStepper"
+                     Minimum="0" Maximum="50000" Increment="100" Value="0"/>
+            <Label Text="{Binding Source={x:Reference StudentCountStepper}, Path=Value}" 
+                   FontSize="Small"/>
+
+            <!-- Вибір фото для університету -->
+            <Label Text="Фото університету" FontSize="Medium" Margin="0,10,0,0"/>
+            <Button Text="Вибрати фото" Clicked="OnPickPhotoClicked"/>
+            <Image x:Name="UniversityImage" WidthRequest="300" HeightRequest="200" Aspect="AspectFill" IsVisible="False"/>
+            
+            <!-- Секція для додавання спеціальностей -->
+            <StackLayout x:Name="SpecialtiesStack" Spacing="20">
+                <!-- Шаблон для введення спеціальності -->
+                <Frame BorderColor="#CCCCCC" CornerRadius="8" Padding="10">
+                    <StackLayout Spacing="10">
+                        <Label Text="Назва спеціальності" FontSize="Small"/>
+                        <Entry Placeholder="Назва спеціальності" x:Name="SpecialtyNameEntry" WidthRequest="300" HeightRequest="40"/>
+
+                        <Label Text="Опис спеціальності" FontSize="Small"/>
+                        <Editor Placeholder="Опис спеціальності" x:Name="SpecialtyDescriptionEditor" WidthRequest="300" HeightRequest="80"/>
+
+                        <Label Text="Ціна спеціальності" FontSize="Small"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Start">
+                            <Stepper x:Name="SpecialtyPriceStepper" Minimum="0" Maximum="100000" Increment="500" Value="0"/>
+                            <Label Text="{Binding Source={x:Reference SpecialtyPriceStepper}, Path=Value}" FontSize="Small"/>
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+            
+            <!-- Кнопка для додавання нової спеціальності -->
+            <Button Text="Додати спеціальність" Clicked="OnAddSpecialtyClicked"/>
+
+            <!-- Кнопка для збереження університету -->
+            <Button Text="Зберегти університет" BackgroundColor="#4CAF50" TextColor="White" Clicked="OnSaveUniversityClicked"/>
+            
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
