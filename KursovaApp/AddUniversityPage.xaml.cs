@@ -23,7 +23,7 @@ public partial class AddUniversityPage : ContentPage
         {
             try
             {
-                var UniversityPrice = StudyFields.Sum(p => p.Price) / StudyFields.Count;
+                int UniversityPrice = (int)StudyFields.Sum(p => p.Price) / StudyFields.Count;
                 var photoPath = CopyPhoto(PhotoPath, UniversitiesList.Count);
 
                 AdminWhoAdded.AddUniversity(UniversityNameEntry.Text, CityEntry.Text, CountryEntry.Text, (int)StudentCountStepper.Value,

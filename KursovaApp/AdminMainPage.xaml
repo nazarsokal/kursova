@@ -12,9 +12,6 @@
                         <Button x:Name="AddUniversityButton" FontSize="30" FontAttributes="Bold" 
                                 Text="Додати університет" BackgroundColor="#B8D8D8" Padding="5" 
                                 Margin="0,0,10,0" TextColor="Black" Clicked="AddUniversityButton_Clicked"></Button>
-                        <Button x:Name="RemoveUniversityButton" FontSize="30" FontAttributes="Bold" 
-                                Text="Видалити університет" BackgroundColor="#B8D8D8" Padding="5" 
-                                Margin="0,0,10,0" TextColor="Black"></Button>
                         <StackLayout>
                             <Button x:Name="EditUniversityButton" FontSize="30" FontAttributes="Bold" 
                                     Text="Змінити університет" BackgroundColor="#B8D8D8" Padding="5" 

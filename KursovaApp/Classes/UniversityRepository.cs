@@ -39,7 +39,7 @@ public class UniversityRepository
         else
             return specialCountUniversities;
     }
-    
+
     public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName, List<University> Universities)
     { 
         var newArray = Universities;

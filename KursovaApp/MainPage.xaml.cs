@@ -9,10 +9,14 @@ namespace KursovaApp;
 public partial class MainPage : ContentPage
 {
 	public ObservableCollection<University> Universities {get; set;}
+    public ObservableCollection<string> CountryList { get; set; } = new ObservableCollection<string>();
+    public ObservableCollection<string> FilteredCountryList { get; set; } = new ObservableCollection<string>();
+
 	public List<University> UniversitiesList {get; private set;} 
     public List<University> CurrentState {get; private set; }
 	public ICommand ButtonCommand { get; }
     public User _User { get; set; }
+    private string SelectedCountry;
 
 	public MainPage()
 	{
@@ -43,30 +47,95 @@ public partial class MainPage : ContentPage
 		BindingContext = this;
         CurrentState = UniversitiesList;
 
+        PopulatePicker();
+        CountrySuggestions.ItemsSource = FilteredCountryList;
+
 		ButtonCommand = new Command<University>(AddInfoButton_Clicked);
 	}
 
-    private void StudentsCountButtonClicked(object sender, EventArgs e)
+    private void PopulatePicker()
     {
-		if (StartEntry.Text != null && MaxEntry.Text != null)
+        var countries = UniversitiesList
+                        .Select(u => u.Country)
+                        .Distinct()
+                        .OrderBy(country => country);
+
+        CountryList.Clear();
+        foreach (var country in countries)
         {
-            int minStudentCount = int.Parse(StartEntry.Text);
-            int maxStudentCount = int.Parse(MaxEntry.Text);
-    
-            if (minStudentCount != 0 && maxStudentCount != 0)
-            {
-                CurrentState = UniversityRepository.StudentsCountUniversities(minStudentCount, maxStudentCount);
-                var specialSCUniversities = new ObservableCollection<University>(CurrentState);
-                if (specialSCUniversities.Count == 0)
-                    DisplayAlert("Помилка", "Університетів із заданою кількістю студентів не знайдено", "ОК");
-    
-                UniversitiesTable.ItemsSource = specialSCUniversities;
-            }
-            else
-                DisplayAlert("Помилка", "Ви не ввели усіх необхідних даних", "ОК");
+            CountryList.Add(country);
+        }
+        FilteredCountryList = new ObservableCollection<string>(CountryList);
+    }
+    private void OnCountryEntryTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var searchTerm = e.NewTextValue;
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            FilteredCountryList.Clear();
+            CountrySuggestions.IsVisible = false;
         }
         else
-            UniversitiesTable.ItemsSource = Universities;
+        {
+            var filtered = CountryList
+                           .Where(c => c.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                           .ToList();
+
+            FilteredCountryList.Clear();
+            foreach (var country in filtered)
+            {
+                FilteredCountryList.Add(country);
+            }
+
+            CountrySuggestions.IsVisible = filtered.Any();
+        }
+    }
+
+    private void OnCountrySelected(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.CurrentSelection.FirstOrDefault() is string selectedCountry)
+        {
+            CountryEntry.Text = selectedCountry;
+
+            SelectedCountry = selectedCountry;
+
+            CountrySuggestions.IsVisible = false;
+        }
+    }
+
+    private void FilterUniversityButtonClicked(object sender, EventArgs e)
+    {
+        IEnumerable<University> query = UniversitiesList;
+
+        if (!string.IsNullOrEmpty(StartEntry.Text) && int.TryParse(StartEntry.Text, out int minStudents))
+            query = query.Where(n => n.StudentsCount > minStudents);
+
+        if (!string.IsNullOrEmpty(MaxEntry.Text) && int.TryParse(MaxEntry.Text, out int maxStudents))
+            query = query.Where(n => n.StudentsCount < maxStudents);
+
+        if (!string.IsNullOrEmpty(SelectedCountry))
+            query = query.Where(n => n.Country == SelectedCountry);
+
+        if (!string.IsNullOrEmpty(CityEntry.Text))
+            query = query.Where(n => n.City == CityEntry.Text);
+
+        if (!string.IsNullOrEmpty(StartPrice.Text) && int.TryParse(StartPrice.Text, out int minPrice))
+            query = query.Where(n => n.Price > minPrice);
+
+        if (!string.IsNullOrEmpty(MaxPrice.Text) && int.TryParse(MaxPrice.Text, out int maxPrice))
+            query = query.Where(n => n.Price < maxPrice);
+        
+        CurrentState = query.ToList();
+        var filteredUniversities = new ObservableCollection<University>(CurrentState);
+        UniversitiesTable.ItemsSource = filteredUniversities;
+
+        ClearEntries();
+    }
+
+    private void DefaultTableButtonClicked(object sender, EventArgs e)
+    {
+        CurrentState = UniversitiesList;
+        UniversitiesTable.ItemsSource = new ObservableCollection<University>(CurrentState);
     }
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
@@ -120,5 +189,15 @@ public partial class MainPage : ContentPage
 
 		Application.Current?.OpenWindow(spWindow);
 	}
+
+    private void ClearEntries()
+    {
+        StartEntry.Text = string.Empty;
+        MaxEntry.Text = string.Empty;
+        CountryEntry.Text = string.Empty;
+        CityEntry.Text = string.Empty;
+        MaxPrice.Text = string.Empty;
+        StartPrice.Text = string.Empty;
+    }
 }
 

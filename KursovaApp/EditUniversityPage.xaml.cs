@@ -7,12 +7,14 @@ public partial class EditUniversityPage : ContentPage
     public List<StudyField> StudyFields { get; set; }
     public University ChosenUniversity { get; set; }  
     public int Id { get; set; }  
-    public EditUniversityPage(University university, int id)
+    public Admin AdminWhoEdited { get; private set; }
+    public EditUniversityPage(University university, int id, Admin admin)
     {
         InitializeComponent();
 
         ChosenUniversity = university;
         Id = id;
+        AdminWhoEdited = admin;
 
         BindingContext = university;
     }
@@ -23,13 +25,10 @@ public partial class EditUniversityPage : ContentPage
         var UniversityDescription = DescriptionEntry.Text;
         var UniversityStudentsCount = StudentCountStepper.Value;
         var UniversityCountry = CountryEntry.Text;
-        var UniversityPrice = ChosenUniversity.StudyFields.Sum(p => p.Price) / ChosenUniversity.StudyFields.Count;
+        int UniversityPrice = (int)ChosenUniversity.StudyFields.Sum(p => p.Price) / ChosenUniversity.StudyFields.Count;
         var photoPath = ChosenUniversity.PhotoPath;
 
-        var UniversityEdited = new University(UniversityName, UniversityCity, UniversityCountry, (int)UniversityStudentsCount, UniversityPrice, UniversityDescription);
-
-        FileRepository.EditUniversity(ChosenUniversity, UniversityEdited, Id);
-        FileRepository.UpdateStudyFields(ChosenUniversity.StudyFields, Id);
+        AdminWhoEdited.EditUniversity(ChosenUniversity, UniversityNameEntry.Text, CityEntry.Text, CountryEntry.Text, (int)StudentCountStepper.Value, DescriptionEntry.Text, UniversityPrice, Id);
 
         DisplayAlert("Успішно", "Ви успішно змінили університет", "Ok");
     }

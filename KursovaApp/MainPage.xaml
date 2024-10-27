@@ -101,13 +101,48 @@
 
                     <StackLayout Spacing="10">
                         <Label Text="Країна" FontSize="18" TextColor="#264653"/>
-                        <Picker x:Name="CountryPicker" Title="Виберіть країну">
+                        <StackLayout>
+                            <Entry x:Name="CountryEntry"
+                                Placeholder="Type or select country"
+                                TextChanged="OnCountryEntryTextChanged" />
 
-                        </Picker>
+                            <CollectionView x:Name="CountrySuggestions"
+                                            IsVisible="False"
+                                            ItemsSource="{Binding FilteredCountryList}"
+                                            SelectionMode="Single"
+                                            SelectionChanged="OnCountrySelected"
+                                            VerticalOptions="Start"
+                                            HeightRequest="200">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding .}"
+                                            Padding="10"
+                                            VerticalOptions="Center" />
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </StackLayout>
                     </StackLayout>
 
+                    <StackLayout Spacing="10">
+                        <Label Text="Місто" FontSize="18" TextColor="#264653"/>
+                        <Entry x:Name="CityEntry" Placeholder="Виберіть місто">
+                        </Entry>
+                    </StackLayout>
+
+                    <StackLayout Spacing="10">
+                        <Label Text="Ціна" FontSize="18" TextColor="#264653"/>
+                        <StackLayout Orientation="Horizontal" Spacing="10">
+                            <Entry x:Name="StartPrice" Placeholder="Від..." WidthRequest="100" BackgroundColor="#F9FBFC" TextColor="#264653" />
+                            <Entry x:Name="MaxPrice" Placeholder="До..." WidthRequest="100" BackgroundColor="#F9FBFC" TextColor="#264653" />
+                        </StackLayout>
+
+                    </StackLayout>
                     <!-- Apply Filter Button -->
-                    <Button Text="Вивести" Clicked="StudentsCountButtonClicked" FontSize="18" BackgroundColor="#2A9D8F" TextColor="White" CornerRadius="10" />
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Button Text="Вивести" Clicked="FilterUniversityButtonClicked" FontSize="18" BackgroundColor="#2A9D8F" TextColor="White" CornerRadius="10" />
+                        <Button Text="Скинути" Clicked="DefaultTableButtonClicked" FontSize="18" BackgroundColor="#2A9D8F" TextColor="White" CornerRadius="10" />
+                    </StackLayout>
                 </StackLayout>
             </Grid>
         </Grid>

@@ -6,7 +6,7 @@ namespace KursovaApp.Classes;
 public class Admin : Person
 {
     public override string Status => "Admin";
-    
+
     public Admin(string _UserName, string _Email, DateTime _DateRegistred, string _Password) 
         : base(_UserName, _Email, _DateRegistred, _Password)
     {
@@ -18,7 +18,7 @@ public class Admin : Person
     }
 
     public void AddUniversity(string UniversityName, string UniversityCity, string UniversityCountry, int UniversityStudentsCount, 
-                            string UniversityDescription, double UniversityPrice, int id, List<StudyField> studyFields)
+                            string UniversityDescription, int UniversityPrice, int id, List<StudyField> studyFields)
     {
        try
        {
@@ -32,5 +32,14 @@ public class Admin : Person
        {
         Debug.WriteLine(ex.Message);
        }
+    }
+
+    public void EditUniversity(University ChosenUniversity, string UniversityName, string UniversityCity, string UniversityCountry, int UniversityStudentsCount, 
+                            string UniversityDescription, int UniversityPrice, int id)
+    {
+        var UniversityEdited = new University(UniversityName, UniversityCity, UniversityCountry, (int)UniversityStudentsCount, UniversityPrice, UniversityDescription);
+
+        FileRepository.EditUniversity(ChosenUniversity, UniversityEdited, id);
+        FileRepository.UpdateStudyFields(ChosenUniversity.StudyFields, id);
     }
 }

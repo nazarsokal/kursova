@@ -40,14 +40,12 @@ public partial class AdminMainPage : ContentPage
 		{
 			ChosenUniversity = UniversitiesList.Find(n => n.Name == UniversityToEdit.Text);
 			int Id = UniversitiesList.IndexOf(ChosenUniversity);
-			var secondWindow = new EditUniversityPage(ChosenUniversity, Id);
+			var secondWindow = new EditUniversityPage(ChosenUniversity, Id, _Admin);
 			var spWindow = new Window(secondWindow);
 	
 			Application.Current?.OpenWindow(spWindow);
 
 			isSecondClick = false;
 		}
-    }
-
-    
+    }    
 }

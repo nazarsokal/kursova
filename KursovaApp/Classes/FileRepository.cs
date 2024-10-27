@@ -26,7 +26,7 @@ public static class FileRepository
             List<string> lineArray = lines.ToList()[i].Split(';').ToList();
             List<StudyField> studyFields = GetProgramsById(int.Parse(lineArray[0]));
 
-            double averagePrice = studyFields.Sum(n => n.Price) / studyFields.Count;
+            int averagePrice = (int)studyFields.Sum(n => n.Price) / studyFields.Count;
             string photoName = $"uni{i}.jpg";
             string photoPath = Path.Combine(subPhotoFolderPath, photoName);
 
@@ -70,6 +70,7 @@ public static class FileRepository
             File.WriteAllLines(filePath, lines);
         }
     }
+    
     public static List<Feedback> ReadFeedbacksFromFile(University university)
     {
         var feedbacks = new List<Feedback>();
@@ -227,33 +228,23 @@ public static class FileRepository
         foreach (var item in studyFields)
         {
             string strToWrite = $"{id},{item.FieldName}({item.Price}):{item.Description}";
-            using (StreamWriter sw = File.AppendText(filePath)) { sw.WriteLine("\n"+strToWrite); }
+            using (StreamWriter sw = File.AppendText(filePath)) { sw.Write("\n"+strToWrite); }
         }
     }
 
     public static void UpdateStudyFields(List<StudyField> studyFields, int id)
     {
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
         string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
         string fileName = "StudyFields.txt";
-
         string filePath = Path.Combine(subFolderPath, fileName);
 
         List<string> lines = File.Exists(filePath) ? File.ReadAllLines(filePath).ToList() : new List<string>();
 
-        string newFieldsData = string.Join(", ", studyFields.Select(field => $"{field.FieldName}({field.Price}):{field.Description}"));
+        string newFieldsData = string.Join(";\n", studyFields.Select(field => $"{field.FieldName}({field.Price}): {field.Description}"));
 
-        int indexToUpdate = lines.FindIndex(line => line.StartsWith($"{id},"));
+        lines.Add(newFieldsData);
 
-        if (indexToUpdate != -1)
-        {
-            lines[indexToUpdate] += $", {newFieldsData}";
-        }
-        else
-        {
-            lines.Add($"{id},{newFieldsData}");
-        }
         File.WriteAllLines(filePath, lines);
     }
 
