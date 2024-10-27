@@ -93,10 +93,10 @@
                         <Frame BorderColor="#B8D8D8" Padding="10" CornerRadius="15" HasShadow="False" Grid.Column="0">
                             <StackLayout Padding="10">
                                 <!-- Name Entry -->
-                                <Entry Placeholder="Enter your name"
-                                    x:Name="NameEntry"
+                                <Label x:Name="NameLabel"
                                     HorizontalOptions="FillAndExpand" 
-                                    FontSize="25"/>
+                                    FontSize="25"
+                                    Text="{Binding UserName}"/>
 
                                 <!-- Comment Entry -->
                                 <Editor Placeholder="Write your comment"

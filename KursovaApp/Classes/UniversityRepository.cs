@@ -39,56 +39,7 @@ public class UniversityRepository
         else
             return specialCountUniversities;
     }
-
-    public static List<University> ReadFile()
-    {
-        var universities = new List<University>();
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
-        string fileName = "UniversityList.txt";
-
-        string filePath = Path.Combine(subFolderPath, fileName);
-
-        string subPhotoFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp", "Photos");
-
-        if (!Directory.Exists(subFolderPath))
-        {
-            Directory.CreateDirectory(subFolderPath);  // This will create the "kursova/KursovaApp" directory if it doesn't exist
-        }
-
-        var lines = File.ReadAllLines(filePath);
-        
-        for (int i = 0; i < lines.Count(); i++)
-        {
-            List<string> lineArray = lines.ToList()[i].Split(';').ToList();
-            List<StudyField> studyFields = StudyField.GetProgramsById(int.Parse(lineArray[0]));
-
-            double averagePrice = studyFields.Sum(n => n.Price) / studyFields.Count;
-            string photoName = $"uni{i}.jpg";
-            string photoPath = Path.Combine(subPhotoFolderPath, photoName);
-
-            universities.Add(new University(_Name: lineArray[1], _City: lineArray[2], _Country: lineArray[3], _StudentsCount: int.Parse(lineArray[4]), 
-            _StudyField: studyFields, _Price: averagePrice, _Description: lineArray[5], _PhotoPath: photoPath));
-        }
-
-        return universities;
-    }
-
-    public static void WriteUniversityToFile(University university, int id)
-    {
-        string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-
-        string subFolderPath = Path.Combine(desktopPath, "kursova", "KursovaApp");
-        string fileName = "UniversityList.txt";
-
-        string filePath = Path.Combine(subFolderPath, fileName);
-
-        string strToWrite = $"{id};{university.Name};{university.City};{university.Country};{university.StudentsCount};{university.Description}";
-
-        using (StreamWriter sw = File.AppendText(filePath)) { sw.WriteLine("\n" + strToWrite); }
-    }
-
+    
     public static List<University> SortUniversities(Func<University, University, PropertyInfo, bool> checkSortOrder,string propertyName, List<University> Universities)
     { 
         var newArray = Universities;

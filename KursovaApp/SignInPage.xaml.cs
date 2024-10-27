@@ -14,8 +14,8 @@ public partial class SignInPage : ContentPage
         var UsernameEntered = UsernameEntry.Text;
         var PasswordEntered = PasswordEntry.Text;
 
-        var personList = Person.ReadFromFile();
-        var person = personList.Find(n => n.UserName == UsernameEntered && n.Password == PasswordEntered);
+        var personList = FileRepository.ReadFromFile();
+        Person? person = personList.Find(n => n.UserName == UsernameEntered && n.Password == PasswordEntered);
 
         try
         {
@@ -23,13 +23,11 @@ public partial class SignInPage : ContentPage
             {
                 if (person.Status == "Admin")
                 {
-                    Admin admin = person as Admin;
-                    await Navigation.PushAsync(new AdminMainPage() { _Admin = admin });
+                    await Navigation.PushAsync(new AdminMainPage() { _Admin = new Admin(person.UserName, person.Email, person.DateRegistred, person.Password) });
                 }
                 else if (person.Status == "User")
                 {
-                    User user = person as User;
-                    await Navigation.PushAsync(new MainPage() { _User = user });
+                    await Navigation.PushAsync(new MainPage() { _User = new User(person.UserName, person.Email, person.DateRegistred, person.Password) });
                 }
                 else
                 {

@@ -9,40 +9,44 @@ public partial class AdminMainPage : ContentPage
     public ObservableCollection<University> Universities { get; set; }
     public List<University> UniversitiesList { get; set; }
     public UniversityRepository UniversityRepository { get; private set; }
+	private bool isSecondClick = false;
     
     public AdminMainPage()
     {
         InitializeComponent();
 
-        Universities = new ObservableCollection<University>();
-
-		UniversitiesList = UniversityRepository.ReadFile();
+		UniversitiesList = FileRepository.ReadFile();
+        Universities = new ObservableCollection<University>(UniversitiesList);
         UniversityRepository = new UniversityRepository(UniversitiesList);
 
-		foreach (var item in UniversitiesList)
-		{
-			Universities.Add(new University
-			{
-				Name = item.Name,
-				City = item.City,
-				Country = item.Country,
-				StudentsCount = item.StudentsCount,
-				Price = item.Price,
-				Description = item.Description,
-				StudyFields = item.StudyFields,
-				PhotoPath = item.PhotoPath
-			});
-		}
-
-		BindingContext = this;
+		UniversitiesTable.ItemsSource = Universities;
     }
-
     private void AddUniversityButton_Clicked(object sender, EventArgs e)
     {
-		var secondWindow = new AddUniversityPage(UniversitiesList);
+		var secondWindow = new AddUniversityPage(UniversitiesList, _Admin);
 		var spWindow = new Window(secondWindow);
 
 		Application.Current?.OpenWindow(spWindow);
+    }
+    private void EditUniversityButtonClicked(object sender, EventArgs e)
+    {
+		University ChosenUniversity = new University();
+		if (!isSecondClick)
+		{
+			UniversityToEdit.IsVisible = !UniversityToEdit.IsVisible;
+			isSecondClick = true;
+		}
+		else
+		{
+			ChosenUniversity = UniversitiesList.Find(n => n.Name == UniversityToEdit.Text);
+			int Id = UniversitiesList.IndexOf(ChosenUniversity);
+			var secondWindow = new EditUniversityPage(ChosenUniversity, Id);
+			var spWindow = new Window(secondWindow);
+	
+			Application.Current?.OpenWindow(spWindow);
+
+			isSecondClick = false;
+		}
     }
 
     

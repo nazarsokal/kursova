@@ -17,8 +17,8 @@ public partial class RegisterPage : ContentPage
             {
                 if(!ContainsTheSameUserName(UsernameEntry.Text) && !ContainsTheSameEmail(EmailEntry.Text))
                 {
-                    User person = new User(UsernameEntry.Text, EmailEntry.Text, DateTime.Now, PasswordEntry.Text, User.GetIp());
-                    person.RegisterUserToFile("User");
+                    User user = new User(UsernameEntry.Text, EmailEntry.Text, DateTime.Now, PasswordEntry.Text);
+                    FileRepository.RegisterUserToFile(user, "User");
                     await DisplayAlert("Success", "Ви успішно зареєструвалися у системі", "OK");
                 }
                 else
@@ -26,12 +26,13 @@ public partial class RegisterPage : ContentPage
             }
             else
                 await DisplayAlert("Fail", "Паролі повинні співпадати", "OK");
-
         }
+        else
+            await DisplayAlert("Fail", "Bluat", "OK");
     }
 
-    public bool ContainsTheSameUserName(string userName) => Person.ReadFromFile().Any(n => n.UserName == userName);
-    public bool ContainsTheSameEmail(string email) => Person.ReadFromFile().Any(n => n.Email == email);
+    public bool ContainsTheSameUserName(string userName) => FileRepository.ReadFromFile().Any(n => n.UserName == userName);
+    public bool ContainsTheSameEmail(string email) => FileRepository.ReadFromFile().Any(n => n.Email == email);
 
     async private void OnLabelTapped(object sender, EventArgs e)
     {

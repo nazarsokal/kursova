@@ -8,31 +8,33 @@ public partial class AddUniversityPage : ContentPage
     public List<University> UniversitiesList { get; private set; }
     private List<StudyField> StudyFields = new List<StudyField>();
     public string PhotoPath { get; private set; }
-    public AddUniversityPage(List<University> universities)
+    public Admin AdminWhoAdded { get; set; }
+    public AddUniversityPage(List<University> universities, Admin _admin)
     {
         InitializeComponent();
 
         UniversitiesList = universities;
+        AdminWhoAdded = _admin;
     }
 
     private void OnSaveUniversityClicked(object sender, EventArgs e)
     {
         if(StudyFields != null)
         {
-            var UniversityName = UniversityNameEntry.Text;
-            var UniversityCity = CityEntry.Text;
-            var UniversityDescription = DescriptionEntry.Text;
-            var UniversityStudentsCount = StudentCountStepper.Value;
-            var UniversityCountry = CountryEntry.Text;
-            var UniversityPrice = StudyFields.Sum(p => p.Price) / StudyFields.Count;
-            var photoPath = CopyPhoto(PhotoPath, UniversitiesList.Count);
+            try
+            {
+                var UniversityPrice = StudyFields.Sum(p => p.Price) / StudyFields.Count;
+                var photoPath = CopyPhoto(PhotoPath, UniversitiesList.Count);
 
-            var UniversityToAdd = new University(UniversityName, UniversityCity, UniversityCountry, (int)UniversityStudentsCount, UniversityPrice, UniversityDescription);
+                AdminWhoAdded.AddUniversity(UniversityNameEntry.Text, CityEntry.Text, CountryEntry.Text, (int)StudentCountStepper.Value,
+                    DescriptionEntry.Text, UniversityPrice, UniversitiesList.Count, StudyFields);
 
-            UniversityRepository.WriteUniversityToFile(UniversityToAdd, UniversitiesList.Count);
-            StudyField.WriteStudyFieldToFile(StudyFields, UniversitiesList.Count);
-
-            DisplayAlert("Ok", "Ви успішно додали університет", "Ok");
+                DisplayAlert("Ok", "Ви успішно додали університет", "Ok");
+            }
+            catch (System.Exception ex)
+            {
+                DisplayAlert("Ok", ex.Message + "\n" + ex.Source, "Ok");
+            }
         }
         else
             DisplayAlert("Ok", "0 study fields", "Ok");

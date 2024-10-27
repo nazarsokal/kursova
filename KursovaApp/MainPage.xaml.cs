@@ -21,7 +21,7 @@ public partial class MainPage : ContentPage
 
 		Universities = new ObservableCollection<University>();
 
-		UniversitiesList = UniversityRepository.ReadFile();
+		UniversitiesList = FileRepository.ReadFile();
 
 		UniversityRepository universityRepository = new UniversityRepository(UniversitiesList);
 
@@ -111,7 +111,7 @@ public partial class MainPage : ContentPage
         }
     }
 
-    private async void AddInfoButton_Clicked(University university) => await Navigation.PushAsync(new AdditionalInfoPage(university));
+    private async void AddInfoButton_Clicked(University university) => await Navigation.PushAsync(new AdditionalInfoPage(university, (User)_User));
 
 	private void SpecialSearchButton_Clicked(object sender, EventArgs e)
 	{
